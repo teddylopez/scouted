@@ -35,7 +35,7 @@ Repo.insert!(%Player{
     number: "20",
     height: "6.8",
     weight: "225",
-    dob: "08/23/93"
+    dob: "08/23/1993"
   }
 })
 
@@ -49,7 +49,7 @@ Repo.insert!(%Player{
     number: "26",
     height: "6.1",
     weight: "260",
-    dob: "05/19/91"
+    dob: "05/19/1991"
   }
 })
 
@@ -63,7 +63,7 @@ Repo.insert!(%Player{
     number: "2",
     height: "6.2",
     weight: "225",
-    dob: "08/08/91"
+    dob: "08/08/1991"
   }
 })
 
@@ -77,7 +77,7 @@ Repo.insert!(%Player{
     number: "13",
     height: "5.11",
     weight: "180",
-    dob: "09/28/94"
+    dob: "09/28/1994"
   }
 })
 
@@ -91,7 +91,7 @@ Repo.insert!(%Player{
     number: "61",
     height: "6.1",
     weight: "192",
-    dob: "10/26/99"
+    dob: "10/26/1999"
   }
 })
 

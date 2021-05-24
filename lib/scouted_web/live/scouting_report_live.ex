@@ -68,4 +68,18 @@ defmodule ScoutedWeb.ScoutingReportLive do
       class: class
     )
   end
+
+  def convert_date(date) do
+    Calendar.strftime(date, "%m/%d/%Y")
+  end
+
+  def calculate_age(date) do
+    [mm, dd, yyyy] = date |> String.split("/") |> Enum.map(&String.to_integer/1)
+    now = Date.utc_today()
+
+    case now.month > mm || (now.month == mm && now.day >= dd) do
+      true -> now.year - yyyy - 0
+      false -> now.year - yyyy - 1
+    end
+  end
 end
