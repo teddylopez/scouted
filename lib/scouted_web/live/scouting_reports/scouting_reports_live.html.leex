@@ -8,17 +8,17 @@
             <div class="flex">
               <div class="pagination">
                 <%= if @options.page > 1 do %>
-                  <%= pagination_link(@socket, "Previous", @options.page - 1, @options.per_page, "previous") %>
+                  <%= pagination_link(@socket, "Previous", @options.page - 1, @options, "previous") %>
                 <% end %>
 
                 <%= for i <- (@options.page - 2)..(@options.page + 2), i > 0 do %>
                   <%= if i <= ceil(@total_reports / @options.per_page) do %>
-                    <%= pagination_link(@socket, i, i, @options.per_page, (if i == @options.page, do: "font-extrabold text-red-500")) %>
+                    <%= pagination_link(@socket, i, i, @options, (if i == @options.page, do: "font-extrabold text-red-500")) %>
                   <% end %>
                 <% end %>
 
                 <%= if (@options.page * @options.per_page) < @total_reports do %>
-                  <%= pagination_link(@socket, "Next", @options.page + 1, @options.per_page, "next") %>
+                  <%= pagination_link(@socket, "Next", @options.page + 1, @options, "next") %>
                 <% end %>
               </div>
             </div>
@@ -45,14 +45,14 @@
                 <th class="font-bold uppercase border border-gray-300 hidden lg:table-cell">
                   Report Type
                 </th>
-                <th class="font-bold uppercase border border-gray-300 hidden lg:table-cell">
-                  Grade
+                <th class="font-bold uppercase text-blue-600 border border-gray-300 hidden lg:table-cell">
+                  <%= sort_link(@socket, "Grade", :grade, @options) %>
                 </th>
                 <th class="font-bold uppercase border border-gray-300 hidden lg:table-cell">
                   Scout
                 </th>
-                <th class="font-bold uppercase border border-gray-300 hidden lg:table-cell">
-                  Last Modified
+                <th class="font-bold uppercase text-blue-600 border border-gray-300 hidden lg:table-cell">
+                  <%= sort_link(@socket, "Last Modified", :updated_at, @options) %>
                 </th>
               </tr>
             </thead>
@@ -99,17 +99,17 @@
           </table>
           <div class="pagination">
             <%= if @options.page > 1 do %>
-              <%= pagination_link(@socket, "Previous", @options.page - 1, @options.per_page, "previous") %>
+              <%= pagination_link(@socket, "Previous", @options.page - 1, @options, "previous") %>
             <% end %>
 
             <%= for i <- (@options.page - 2)..(@options.page + 2), i > 0 do %>
               <%= if i <= ceil(@total_reports / @options.per_page) do %>
-                <%= pagination_link(@socket, i, i, @options.per_page, (if i == @options.page, do: "font-extrabold text-red-500")) %>
+                <%= pagination_link(@socket, i, i, @options, (if i == @options.page, do: "font-extrabold text-red-500")) %>
               <% end %>
             <% end %>
 
             <%= if (@options.page * @options.per_page) < @total_reports do %>
-              <%= pagination_link(@socket, "Next", @options.page + 1, @options.per_page, "next") %>
+              <%= pagination_link(@socket, "Next", @options.page + 1, @options, "next") %>
             <% end %>
           </div>
         </div>
