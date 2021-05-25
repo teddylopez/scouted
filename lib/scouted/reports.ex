@@ -18,7 +18,7 @@ defmodule Scouted.Reports do
 
   """
   def list_scouting_reports do
-    scouting_reports = Repo.all(from report in ScoutingReport, preload: [:player, :user])
+    Repo.all(from report in ScoutingReport, preload: [:player, :user])
   end
 
   def list_scouting_reports(criteria) when is_list(criteria) do
@@ -32,12 +32,42 @@ defmodule Scouted.Reports do
 
       {:sort, %{sort_by: sort_by, sort_order: sort_order}}, query ->
         from q in query, order_by: [{^sort_order, ^sort_by}]
+
+      {:report_type, %{report_type: report_type}}, query ->
+        case report_type do
+          "all" -> query
+          %{} -> query
+          0 -> from q in query, where: q.report_type == 0
+          1 -> from q in query, where: q.report_type == 1
+          nil -> query
+        end
     end)
     |> Repo.all()
   end
 
   def count_reports do
     Repo.aggregate(ScoutingReport, :count, :id)
+  end
+
+  def count_reports(report_type) do
+    case report_type do
+      0 ->
+        query =
+          from scouting_report in ScoutingReport,
+            where: scouting_report.report_type == 0
+
+        Repo.aggregate(query, :count, :id)
+
+      1 ->
+        query =
+          from scouting_report in ScoutingReport,
+            where: scouting_report.report_type == 1
+
+        Repo.aggregate(query, :count, :id)
+
+      _ ->
+        Repo.aggregate(ScoutingReport, :count, :id)
+    end
   end
 
   @doc """

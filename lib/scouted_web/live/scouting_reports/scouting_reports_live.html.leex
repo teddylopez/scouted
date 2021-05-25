@@ -1,6 +1,14 @@
 <div class="mx-auto sm:px-auto md:px-auto lg:px-auto xl:px-48 xxl:px-48">
   <div class="h-full md:h-screen">
     <h1 class="text-2xl my-5">Scouting Reports</h1>
+      <button type="button" phx-click="select-report-type" phx-value-report-type="all">All</button>
+      <button type="button" phx-click="select-report-type" phx-value-report-type="0">Pitcher</button>
+      <button type="button" phx-click="select-report-type" phx-value-report-type="1">Batter</button>
+
+    <br>
+      Reports: <%= @total_reports %>
+    <br>
+
     <div class="md:grid grid-cols-12 gap-6">
       <div class="col-span-12">
         <div class="bg-white shadow-xl rounded-md mx-4">
@@ -31,7 +39,6 @@
               </form>
             </div>
           </div>
-
 
           <table class="border-collapse w-full cursor-pointer">
             <thead>
