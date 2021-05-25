@@ -19,8 +19,10 @@ defmodule ScoutedWeb.Router do
 
   scope "/", ScoutedWeb do
     pipe_through [:browser, :require_authenticated_user]
-
-    live "/", ScoutingReportLive
+    get "/home", HomeController, :index
+    # get "/home/:recents", HomeController, :recents
+    live "/", ScoutingReportsLive
+    live "/scouting_reports/new", NewScoutingReportLive
   end
 
   # Other scopes may use custom stacks.
