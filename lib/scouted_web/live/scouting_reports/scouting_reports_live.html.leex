@@ -1,10 +1,11 @@
 <div class="mx-auto sm:px-auto md:px-auto lg:px-auto xl:px-48 xxl:px-48">
   <div class="h-full md:h-screen">
     <h1 class="text-2xl my-5">Scouting Reports</h1>
-      <button type="button" phx-click="select-report-type" phx-value-report-type="all">All</button>
-      <button type="button" phx-click="select-report-type" phx-value-report-type="0">Pitcher</button>
-      <button type="button" phx-click="select-report-type" phx-value-report-type="1">Batter</button>
-
+      <div class="button-container" x-data="{activeTab: 0}">
+        <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded" phx-click="select-report-type" phx-value-report-type="all" :class="{ 'bg-blue-600 active-font' : activeTab === 0 }" @click="activeTab = 0">All</button>
+        <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded" phx-click="select-report-type" phx-value-report-type="0" :class="{ 'bg-blue-600 active-font' : activeTab === 1 }" @click="activeTab = 1">Pitcher</button>
+        <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded" phx-click="select-report-type" phx-value-report-type="1" :class="{ 'bg-blue-600 active-font' : activeTab === 2 }" @click="activeTab = 2">Batter</button>
+      </div>
     <br>
       Reports: <%= @total_reports %>
     <br>
@@ -12,7 +13,7 @@
     <div class="md:grid grid-cols-12 gap-6">
       <div class="col-span-12">
         <div class="bg-white shadow-xl rounded-md mx-4">
-          <div class="flex justify-between">
+          <div class="pagination-container flex justify-between p-4">
             <div class="flex">
               <div class="pagination">
                 <%= if @options.page > 1 do %>
@@ -33,7 +34,7 @@
             <div class="flex">
               <form phx-change="select-per-page">
                 <label for="">Per Page:</label>
-                <select name="per-page">
+                <select name="per-page" class="border">
                   <%= options_for_select([5, 10, 25], @options.per_page) %>
                 </select>
               </form>
@@ -43,22 +44,22 @@
           <table class="border-collapse w-full cursor-pointer">
             <thead>
               <tr>
-                <th class="font-bold uppercase border border-gray-300 hidden lg:table-cell">
+                <th class="font-bold uppercase hidden lg:table-cell">
                   Player
                 </th>
-                <th class="font-bold uppercase border border-gray-300 hidden lg:table-cell">
+                <th class="font-bold uppercase hidden lg:table-cell">
                   Age
                 </th>
-                <th class="font-bold uppercase border border-gray-300 hidden lg:table-cell">
+                <th class="font-bold uppercase hidden lg:table-cell">
                   Report Type
                 </th>
-                <th class="font-bold uppercase text-blue-600 border border-gray-300 hidden lg:table-cell">
+                <th class="font-bold uppercase text-blue-600 hidden lg:table-cell">
                   <%= sort_link(@socket, "Grade", :grade, @options) %>
                 </th>
-                <th class="font-bold uppercase border border-gray-300 hidden lg:table-cell">
+                <th class="font-bold uppercase hidden lg:table-cell">
                   Scout
                 </th>
-                <th class="font-bold uppercase text-blue-600 border border-gray-300 hidden lg:table-cell">
+                <th class="font-bold uppercase text-blue-600 hidden lg:table-cell">
                   <%= sort_link(@socket, "Last Modified", :updated_at, @options) %>
                 </th>
               </tr>
@@ -66,19 +67,19 @@
               <tbody>
                 <%= for scouting_report <- @scouting_reports do %>
                   <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
-                    <td class="w-full lg:w-auto text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+                    <td class="w-full lg:w-auto text-gray-800 text-center p-2 block lg:table-cell relative lg:static">
                       <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
                         Player
                       </span>
                       <%= format_name(scouting_report.player) %>
                     </td>
-                    <td class="w-full lg:w-auto text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
+                    <td class="w-full lg:w-auto text-gray-800 text-center p-2 block lg:table-cell relative lg:static">
                       <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
                         Age
                       </span>
                       <%= calculate_age(scouting_report.player.info["dob"]) %>
                     </td>
-                    <td class="w-full lg:w-auto text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+                    <td class="w-full lg:w-auto text-gray-800 text-center p-2 text-center block lg:table-cell relative lg:static">
                       <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
                         Report Type
                       </span>
@@ -86,17 +87,17 @@
                         <img src="/images/<%= report_icon(scouting_report.report_type) %>" alt="report type icon" class="h-6">
                       </div>
                     </td>
-                    <td class="w-full lg:w-auto text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+                    <td class="w-full lg:w-auto text-gray-800 text-center p-2 text-center block lg:table-cell relative lg:static">
                       <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Grade</span>
                       <span class="rounded text-white <%= highlight_grade(scouting_report.grade) %> py-1 px-3 text-xs font-bold">
                         <%= scouting_report.grade %>
                       </span>
                     </td>
-                    <td class="w-full lg:w-auto text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+                    <td class="w-full lg:w-auto text-gray-800 text-center p-2 text-center block lg:table-cell relative lg:static">
                       <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Scout</span>
                       <%= scouting_report.user.email %>
                     </td>
-                    <td class="w-full lg:w-auto text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+                    <td class="w-full lg:w-auto text-gray-800 text-center p-2 text-center block lg:table-cell relative lg:static">
                       <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Scout</span>
                       <%= convert_date(scouting_report.updated_at) %>
                     </td>
@@ -104,20 +105,22 @@
                 <% end %>
               </tbody>
           </table>
-          <div class="pagination">
-            <%= if @options.page > 1 do %>
-              <%= pagination_link(@socket, "Previous", @options.page - 1, @options, "previous") %>
-            <% end %>
-
-            <%= for i <- (@options.page - 2)..(@options.page + 2), i > 0 do %>
-              <%= if i <= ceil(@total_reports / @options.per_page) do %>
-                <%= pagination_link(@socket, i, i, @options, (if i == @options.page, do: "font-extrabold text-red-500")) %>
+          <div class="pagination-container p-4">
+            <div class="pagination">
+              <%= if @options.page > 1 do %>
+                <%= pagination_link(@socket, "Previous", @options.page - 1, @options, "previous") %>
               <% end %>
-            <% end %>
 
-            <%= if (@options.page * @options.per_page) < @total_reports do %>
-              <%= pagination_link(@socket, "Next", @options.page + 1, @options, "next") %>
-            <% end %>
+              <%= for i <- (@options.page - 2)..(@options.page + 2), i > 0 do %>
+                <%= if i <= ceil(@total_reports / @options.per_page) do %>
+                  <%= pagination_link(@socket, i, i, @options, (if i == @options.page, do: "font-extrabold text-red-500")) %>
+                <% end %>
+              <% end %>
+
+              <%= if (@options.page * @options.per_page) < @total_reports do %>
+                <%= pagination_link(@socket, "Next", @options.page + 1, @options, "next") %>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
