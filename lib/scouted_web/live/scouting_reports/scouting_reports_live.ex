@@ -84,7 +84,7 @@ defmodule ScoutedWeb.ScoutingReportsLive do
     {:noreply, socket}
   end
 
-  defp pagination_link(socket, text, page, options, class) do
+  def pagination_link(socket, text, page, options, class) do
     live_patch(text,
       to:
         Routes.live_path(
