@@ -3,6 +3,7 @@ defmodule ScoutedWeb.ScoutingReportController do
 
   alias Scouted.Reports
   alias Scouted.Reports.ScoutingReport
+  alias Scouted.Repo
 
   def index(conn, _params) do
     scouting_reports = Reports.list_scouting_reports()
@@ -27,7 +28,10 @@ defmodule ScoutedWeb.ScoutingReportController do
   end
 
   def show(conn, %{"id" => id}) do
-    scouting_report = Reports.get_scouting_report!(id)
+    scouting_report =
+      Reports.get_scouting_report!(id)
+      |> Repo.preload([:player, :user])
+
     render(conn, "show.html", scouting_report: scouting_report)
   end
 

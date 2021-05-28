@@ -1,1 +1,35 @@
-<h1><%= inspect @scouting_report %></h1>
+<div class="container sm:mx-auto">
+  <div class="flex justify-between my-6 border-red-500">
+    <div class="flex-1">
+      <h1 class="text-2xl"><%= convert_report_type(@scouting_report.report_type) %> Report for <%= format_name(@scouting_report.player) %></h1>
+    </div>
+    <div class="flex-1 text-right">
+      <h1 class="text-lg">Author: <%= @scouting_report.user.email %></h1>
+    </div>
+  </div>
+  <div class="bg-white shadow-xl rounded-md ">
+    <div class="flex flex-wrap overflow-hidden py-4">
+      <div class="w-1/3 overflow-hidden border-black border-r px-4">
+        <h5><span class="font-bold">Position:</span> <%= @scouting_report.details["position"] %></h5>
+        <br>
+        <h5><span class="font-bold">Grade:</span> <%= @scouting_report.grade %></h5>
+        <br>
+        <h5><span class="font-bold">Running time to first base:</span> <%= @scouting_report.details["time_to_first"] %>s</h5>
+        <br>
+        <h5><span class="font-bold">Additional Info:</span></h5>
+        <ul class="mb-sm-5">
+          <li>Height: <%= @scouting_report.player.info["height"] %></li>
+          <li>Weight: <%= @scouting_report.player.info["weight"] %></li>
+          <li>Bats: <%= @scouting_report.player.info["bats"] %></li>
+          <li>Throws: <%= @scouting_report.player.info["throws"] %></li>
+          <li>DOB: <%= @scouting_report.player.info["dob"] %></li>
+        </ul>
+      </div>
+      
+      <div class="w-2/3 overflow-hidden px-4">
+        <h5><span class="font-bold">Summary:</span></h5>
+        <%= @scouting_report.details["summary"] %>
+      </div>
+    </div>
+  </div>
+</div>
