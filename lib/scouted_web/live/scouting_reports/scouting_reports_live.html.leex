@@ -1,18 +1,15 @@
-<div class="container mx-auto sm:px-auto md:px-auto lg:px-auto xl:px-48 xxl:px-48">
+<div class="container sm:mx-auto">
   <div class="md:h-screen">
     <h1 class="text-2xl my-5">Scouting Reports</h1>
-      <div class="button-container" x-data="{activeTab: 0}">
-        <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded" phx-click="select-report-type" phx-value-report-type="all" :class="{ 'bg-blue-600 active-font' : activeTab === 0 }" @click="activeTab = 0">All</button>
-        <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded" phx-click="select-report-type" phx-value-report-type="0" :class="{ 'bg-blue-600 active-font' : activeTab === 1 }" @click="activeTab = 1">Pitcher</button>
-        <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded" phx-click="select-report-type" phx-value-report-type="1" :class="{ 'bg-blue-600 active-font' : activeTab === 2 }" @click="activeTab = 2">Batter</button>
+      <div class="button-container mb-8" x-data="{activeTab: 0}">
+        <button class="bg-transparent hover:bg-blue-600 text-blue-600 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded" phx-click="select-report-type" phx-value-report-type="all" :class="{ 'bg-blue-600 active-font' : activeTab === 0 }" @click="activeTab = 0">All</button>
+        <button class="bg-transparent hover:bg-blue-600 text-blue-600 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded" phx-click="select-report-type" phx-value-report-type="0" :class="{ 'bg-blue-600 active-font' : activeTab === 1 }" @click="activeTab = 1">Pitcher</button>
+        <button class="bg-transparent hover:bg-blue-600 text-blue-600 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded" phx-click="select-report-type" phx-value-report-type="1" :class="{ 'bg-blue-600 active-font' : activeTab === 2 }" @click="activeTab = 2">Batter</button>
       </div>
-    <br>
-      Reports: <%= @total_reports %>
-    <br>
 
     <div class="md:grid grid-cols-12 gap-6">
       <div class="col-span-12">
-        <div class="bg-white shadow-xl rounded-md mx-4">
+        <div class="bg-white shadow-xl rounded-md">
           <%= render ScoutedWeb.SharedView, "_pagination.html", options: @options, socket: @socket, total_reports: @total_reports %>
           <table class="border-collapse w-full cursor-pointer">
             <thead>
@@ -71,7 +68,7 @@
                       <%= scouting_report.user.email %>
                     </td>
                     <td class="w-full lg:w-auto text-gray-800 text-center p-2 text-center block lg:table-cell relative lg:static">
-                      <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Scout</span>
+                      <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Last Modified</span>
                       <%= convert_date(scouting_report.updated_at) %>
                     </td>
                   </tr>
