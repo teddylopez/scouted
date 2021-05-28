@@ -1,5 +1,5 @@
 <div class="container sm:mx-auto">
-  <div class="md:h-screen">
+  <div class="h-screen">
     <h1 class="text-2xl my-5">Scouting Reports</h1>
       <div class="button-container mb-8" x-data="{activeTab: 0}">
         <button class="bg-transparent hover:bg-blue-600 text-blue-600 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded" phx-click="select-report-type" phx-value-report-type="all" :class="{ 'bg-blue-600 active-font' : activeTab === 0 }" @click="activeTab = 0">All</button>
@@ -7,11 +7,11 @@
         <button class="bg-transparent hover:bg-blue-600 text-blue-600 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded" phx-click="select-report-type" phx-value-report-type="1" :class="{ 'bg-blue-600 active-font' : activeTab === 2 }" @click="activeTab = 2">Batter</button>
       </div>
 
-    <div class="md:grid grid-cols-12 gap-6">
+    <div class="grid grid-cols-12 gap-6">
       <div class="col-span-12">
         <div class="bg-white shadow-xl rounded-md">
           <%= render ScoutedWeb.SharedView, "_pagination.html", options: @options, socket: @socket, total_reports: @total_reports %>
-          <table class="border-collapse w-full cursor-pointer">
+          <table class="border-collapse w-full cursor-pointer clickable-table">
             <thead>
               <tr>
                 <th class="font-bold uppercase hidden lg:table-cell">
@@ -36,7 +36,7 @@
             </thead>
               <tbody>
                 <%= for scouting_report <- @scouting_reports do %>
-                  <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
+                  <tr data-href="/scouting_reports/<%= scouting_report.id %>" class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
                     <td class="w-full lg:w-auto text-gray-800 text-center p-2 block lg:table-cell relative lg:static">
                       <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
                         Player
