@@ -20,7 +20,7 @@
     <form phx-change="select-per-page">
       <label for="">Per Page:</label>
       <select name="per-page" class="border">
-        <%= options_for_select([5, 10, 25], @options.per_page) %>
+        <%= options_for_select([10, 25, 50], @options.per_page) %>
       </select>
     </form>
   </div>

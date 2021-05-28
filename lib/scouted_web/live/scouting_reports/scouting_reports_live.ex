@@ -50,7 +50,7 @@ defmodule ScoutedWeb.ScoutingReportsLive do
   @impl true
   def handle_params(params, _url, socket) do
     page = String.to_integer(params["page"] || "1")
-    per_page = String.to_integer(params["per_page"] || "5")
+    per_page = String.to_integer(params["per_page"] || "10")
     sort_by = (params["sort_by"] || "grade") |> String.to_atom()
     sort_order = (params["sort_order"] || "desc") |> String.to_atom()
     report_type = translate_report_type(params)
