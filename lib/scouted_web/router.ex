@@ -23,6 +23,7 @@ defmodule ScoutedWeb.Router do
     # get "/home/:recents", HomeController, :recents
     live "/", ScoutingReportsLive
     live "/scouting_reports/new", NewScoutingReportLive
+    get "/scouting_reports/:id", ScoutingReportController, :show
   end
 
   # Other scopes may use custom stacks.
