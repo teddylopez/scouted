@@ -1,80 +1,78 @@
 <div class="container sm:mx-auto">
   <div class="h-screen">
-    <h1 class="text-2xl my-5">Scouting Reports</h1>
+    <h1 class="text-2xl my-5">All Reports</h1>
       <div class="button-container mb-8" x-data="{activeTab: 0}">
         <button class="bg-transparent hover:bg-blue-600 text-blue-600 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded" phx-click="select-report-type" phx-value-report-type="all" :class="{ 'bg-blue-600 active-font' : activeTab === 0 }" @click="activeTab = 0">All</button>
         <button class="bg-transparent hover:bg-blue-600 text-blue-600 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded" phx-click="select-report-type" phx-value-report-type="0" :class="{ 'bg-blue-600 active-font' : activeTab === 1 }" @click="activeTab = 1">Pitcher</button>
         <button class="bg-transparent hover:bg-blue-600 text-blue-600 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded" phx-click="select-report-type" phx-value-report-type="1" :class="{ 'bg-blue-600 active-font' : activeTab === 2 }" @click="activeTab = 2">Batter</button>
       </div>
 
-    <div class="grid grid-cols-12 gap-6">
+    <div class="grid grid-cols-12 gap-6 pb-36">
       <div class="col-span-12">
         <div class="bg-white shadow-xl rounded-md">
           <%= render ScoutedWeb.SharedView, "_pagination.html", options: @options, socket: @socket, total_reports: @total_reports %>
-          <table class="border-collapse w-full cursor-pointer clickable-table">
-            <thead>
-              <tr>
-                <th class="font-bold uppercase hidden lg:table-cell">
-                  Player
-                </th>
-                <th class="font-bold uppercase hidden lg:table-cell">
-                  Age
-                </th>
-                <th class="font-bold uppercase hidden lg:table-cell">
-                  Report Type
-                </th>
-                <th class="font-bold uppercase text-blue-600 hidden lg:table-cell">
-                  <%= sort_link(@socket, "Grade", :grade, @options) %>
-                </th>
-                <th class="font-bold uppercase hidden lg:table-cell">
-                  Scout
-                </th>
-                <th class="font-bold uppercase text-blue-600 hidden lg:table-cell">
-                  <%= sort_link(@socket, "Last Modified", :updated_at, @options) %>
-                </th>
-              </tr>
-            </thead>
-              <tbody>
-                <%= for scouting_report <- @scouting_reports do %>
-                  <tr data-href="/scouting_reports/<%= scouting_report.id %>" class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
-                    <td class="w-full lg:w-auto text-gray-800 text-center p-2 block lg:table-cell relative lg:static">
-                      <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
-                        Player
-                      </span>
-                      <%= format_name(scouting_report.player) %>
-                    </td>
-                    <td class="w-full lg:w-auto text-gray-800 text-center p-2 block lg:table-cell relative lg:static">
-                      <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
-                        Age
-                      </span>
-                      <%= calculate_age(scouting_report.player.info["dob"]) %>
-                    </td>
-                    <td class="w-full lg:w-auto text-gray-800 text-center p-2 text-center block lg:table-cell relative lg:static">
-                      <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">
-                        Report Type
-                      </span>
-                      <div class="h-6 flex justify-center">
-                        <img src="/images/<%= report_icon(scouting_report.report_type) %>" alt="report type icon" class="h-6">
-                      </div>
-                    </td>
-                    <td class="w-full lg:w-auto text-gray-800 text-center p-2 text-center block lg:table-cell relative lg:static">
-                      <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Grade</span>
-                      <span class="rounded text-white <%= highlight_grade(scouting_report.grade) %> py-1 px-3 text-xs font-bold">
-                        <%= scouting_report.grade %>
-                      </span>
-                    </td>
-                    <td class="w-full lg:w-auto text-gray-800 text-center p-2 text-center block lg:table-cell relative lg:static">
-                      <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Scout</span>
-                      <%= scouting_report.user.email %>
-                    </td>
-                    <td class="w-full lg:w-auto text-gray-800 text-center p-2 text-center block lg:table-cell relative lg:static">
-                      <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Last Modified</span>
-                      <%= convert_date(scouting_report.updated_at) %>
-                    </td>
-                  </tr>
-                <% end %>
-              </tbody>
-          </table>
+          <!-- This example requires Tailwind CSS v2.0+ -->
+          <div class="flex flex-col">
+            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                <div class="overflow-hidden sm:rounded-lg">
+                  <table class="min-w-full divide-y divide-gray-200 clickable-table">
+                    <thead>
+                      <tr>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Player
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Age
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Report Type
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-blue-600 uppercase tracking-wider">
+                          <%= sort_link(@socket, "Grade", :grade, @options) %>
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Author
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-blue-600 uppercase tracking-wider">
+                          <%= sort_link(@socket, "Last Modified", :updated_at, @options) %>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <%= for scouting_report <- @scouting_reports do %>
+                        <!-- Or bg-gray -->
+                        <tr class="bg-white cursor-pointer hover:bg-gray-100" data-href="/scouting_reports/<%= scouting_report.id %>">
+                          <td class="px-6  whitespace-nowrap text-sm font-medium text-gray-900">
+                            <%= format_name(scouting_report.player) %>
+                          </td>
+                          <td class="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
+                            <%= calculate_age(scouting_report.player.info["dob"]) %>
+                          </td>
+                          <td class="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
+                            <div class="h-6 flex justify-center">
+                              <img src="/images/<%= report_icon(scouting_report.report_type) %>" alt="report type icon" class="h-6">
+                            </div>                        
+                          </td>
+                          <td class="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
+                            <span class="rounded text-white <%= highlight_grade(scouting_report.grade) %> py-1 px-3 text-xs font-bold">
+                              <%= scouting_report.grade %>
+                            </span>
+                          </td>
+                          <td class="px-6 py-2 whitespace-nowrap text-sm font-medium">
+                            <%= scouting_report.user.email %>
+                          </td>
+                          <td class="px-6 py-2 whitespace-nowrap text-sm font-medium">
+                            <%= convert_date(scouting_report.updated_at) %>
+                          </td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
           <%= render ScoutedWeb.SharedView, "_pagination.html", options: @options, socket: @socket, total_reports: @total_reports %>
         </div>
       </div>
