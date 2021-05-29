@@ -1,0 +1,57 @@
+<table class="w-full mt-4">
+  <thead class="border-gray-500 border-b">
+    <th>Pitch</th>
+    <th>Min Velo</th>
+    <th>Max Velo</th>
+  </thead>
+
+  <tbody>
+    <tr class="border-gray-200 text-center border-b">
+      <%= if @scouting_report.details["fastball_min_velo"] do %>
+        <td>Fastball</td>
+        <td><%= @scouting_report.details["fastball_min_velo"] %></td>
+        <td><%= @scouting_report.details["fastball_min_velo"] %></td>
+      <% end %>
+    </tr>
+
+    <tr class="border-gray-200 text-center border-b">
+      <%= if @scouting_report.details["sinker_min_velo"] do %>
+        <td>Sinker</td>
+        <td><%= @scouting_report.details["sinker_min_velo"] %></td>
+        <td><%= @scouting_report.details["sinker_min_velo"] %></td>
+      <% end %>
+    </tr>
+
+    <tr class="border-gray-200 text-center border-b">
+      <%= if @scouting_report.details["slider_min_velo"] do %>
+        <td>Slider</td>
+        <td><%= @scouting_report.details["slider_min_velo"] %></td>
+        <td><%= @scouting_report.details["slider_min_velo"] %></td>
+      <% end %>
+    </tr>
+
+    <tr class="border-gray-200 text-center border-b">
+      <%= if @scouting_report.details["curveball_min_velo"] do %>
+        <td>Curveball</td>
+        <td><%= @scouting_report.details["curveball_min_velo"] %></td>
+        <td><%= @scouting_report.details["curveball_min_velo"] %></td>
+      <% end %>
+    </tr>
+
+    <tr class="border-gray-200 text-center border-b">
+      <%= if @scouting_report.details["changeup_min_velo"] do %>
+        <td>Changeup</td>
+        <td><%= @scouting_report.details["changeup_min_velo"] %></td>
+        <td><%= @scouting_report.details["changeup_min_velo"] %></td>
+      <% end %>
+    </tr>
+
+    <tr class="border-gray-200 text-center border-b">
+      <%= if @scouting_report.details["other_min_velo"] do %>
+        <td><%= @scouting_report.other_name %></td>
+        <td><%= @scouting_report.details["other_min_velo"] %></td>
+        <td><%= @scouting_report.details["other_min_velo"] %></td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>

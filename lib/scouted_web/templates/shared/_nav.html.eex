@@ -4,12 +4,14 @@
       <div class="flex-1 flex sm:items-stretch sm:justify-start">
         <div class="flex-shrink-0 flex">
           <%= link to: "/" do %>
-            <h1 class="text-white">scouted</h1>
+            <h1 class="text-white text-2xl">scouted</h1>
           <% end %>
         </div>
       </div>
       <div class="text-white absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-        <%= if @current_user, do: @current_user.email, else: "" %>
+        <%= if @current_user do %>
+          <%= @current_user.email %> <span class="ml-2 text-gray-400"><%= link "Log out", to: "/users/log_out", method: :delete %></span>
+        <% end %>
       </div>
     </div>
   </div>

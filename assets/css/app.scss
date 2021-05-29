@@ -101,12 +101,15 @@
 
 div.container {
   width: 75%;
-  margin: 0 auto
+  margin: 0 auto;
 }
-
 @media only screen and (max-width: 1300px) {
   div.container {
     width: 100%;
-    margin: 0 auto
+    margin: 0 auto;
   }
+}
+
+body {
+  background-color: #f5f2f0 !important;
 }
