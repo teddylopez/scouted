@@ -1,1 +1,15 @@
-<h1>New Scouting Report</h1>
+<div class="container">
+  <div class="button-container my-8" x-data="{activeTab: 0}">
+    <button class="bg-transparent hover:bg-blue-600 text-blue-600 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded" phx-click="new-report-type" phx-value-report-type="0" :class="{ 'bg-blue-600 active-font' : activeTab === 1 }" @click="activeTab = 1">Pitcher Report</button>
+    <button class="bg-transparent hover:bg-blue-600 text-blue-600 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded" phx-click="new-report-type" phx-value-report-type="1" :class="{ 'bg-blue-600 active-font' : activeTab === 2 }" @click="activeTab = 2">Position Player Report</button>
+  </div>
+
+  <%= if @report_type != nil do %>
+    <%= render ScoutedWeb.ScoutingReportView,
+        "#{render_report_form(@report_type)}", 
+        changeset: @changeset,
+        current_user: @current_user,
+        report_type: @report_type %>
+  <% end %>
+
+</div>

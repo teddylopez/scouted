@@ -15,7 +15,7 @@ defmodule Scouted.Reports.ScoutingReport do
   @doc false
   def changeset(scouting_report, attrs) do
     scouting_report
-    |> cast(attrs, [:report_type, :grade, :details])
-    |> validate_required([:report_type, :grade, :details])
+    |> cast(attrs, [:details, :grade, :report_type, :player_id, :user_id])
+    |> validate_required([:details, :grade, :report_type, :player_id, :user_id])
   end
 end

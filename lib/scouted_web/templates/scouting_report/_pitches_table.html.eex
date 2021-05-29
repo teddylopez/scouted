@@ -48,7 +48,7 @@
 
     <tr class="border-gray-200 text-center border-b">
       <%= if @scouting_report.details["other_min_velo"] do %>
-        <td><%= @scouting_report.other_name %></td>
+        <td><%= @scouting_report.details["other_name"] %></td>
         <td><%= @scouting_report.details["other_min_velo"] %></td>
         <td><%= @scouting_report.details["other_min_velo"] %></td>
       <% end %>
