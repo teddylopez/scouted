@@ -24,6 +24,7 @@ defmodule ScoutedWeb.Router do
     live "/", ScoutingReportsLive
     live "/scouting_reports/new", NewScoutingReportLive
     get "/scouting_reports/:id", ScoutingReportController, :show
+    live "/scouting_reports/:id/edit", EditScoutingReportLive
   end
 
   # Other scopes may use custom stacks.

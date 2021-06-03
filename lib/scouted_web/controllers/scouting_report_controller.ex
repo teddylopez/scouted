@@ -32,13 +32,14 @@ defmodule ScoutedWeb.ScoutingReportController do
       Reports.get_scouting_report!(id)
       |> Repo.preload([:player, :user])
 
-    render(conn, "show.html", scouting_report: scouting_report)
+    changeset = Reports.change_scouting_report(scouting_report)
+
+    render(conn, "show.html", changeset: changeset.data)
   end
 
   def edit(conn, %{"id" => id}) do
-    scouting_report = Reports.get_scouting_report!(id)
-    changeset = Reports.change_scouting_report(scouting_report)
-    render(conn, "edit.html", scouting_report: scouting_report, changeset: changeset)
+    changeset = Reports.get_scouting_report!(id)
+    render(conn, "edit.html", changeset: changeset.data)
   end
 
   def update(conn, %{"id" => id, "scouting_report" => scouting_report_params}) do

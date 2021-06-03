@@ -5,8 +5,8 @@
   </div>
 
   <%= if @report_type != nil do %>
-    <%= render ScoutedWeb.ScoutingReportView,
-        "#{render_report_form(@report_type)}", 
+    <%= render ScoutingReportView,
+        "#{ScoutingReportView.render_report_form(@report_type)}",
         changeset: @changeset,
         current_user: @current_user,
         report_type: @report_type %>

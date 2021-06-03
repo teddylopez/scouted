@@ -2,39 +2,49 @@
   <div class="sm:flex justify-between align-center my-6 border-b border-gray-500 pb-6">
     <div>
       <h1 class="text-2xl">
-        <%= convert_report_type(@scouting_report.report_type) %> Report for <%= format_name(@scouting_report.player) %>
+        <%= convert_report_type(@changeset.report_type) %> Report for <%= format_name(@changeset.player) %>
       </h1>
     </div>
     <div>
       <h1 class="sm:text-lg text-sm">
-        Author: <%= @scouting_report.user.email %>
+        Author: <%= @changeset.user.email %>
       </h1>
     </div>
   </div>
   <div class="bg-white shadow-xl rounded-md ">
     <div class="flex flex-wrap overflow-hidden py-4">
       <div class="md:w-1/3 w-full overflow-hidden md:border-gray-500 md:border-r px-4">
-        <h5 class="mb-4"><span class="font-bold">Position:</span> <%= @scouting_report.details["position"] %></h5>
-        <h5 class="mb-4"><span class="font-bold">Grade:</span> <%= @scouting_report.grade %></h5>
-        <h5 class="mb-4"><span class="font-bold">Running time to first base:</span> <%= @scouting_report.details["time_to_first"] %>s</h5>
+        <%= if position_report?(@changeset.report_type) do %>
+          <h5 class="mb-4"><span class="font-bold">Position:</span> <%= @changeset.details.position %></h5>
+        <% end %>
+        <%= if pitcher_report?(@changeset.report_type) do %>
+          <h5 class="mb-4"><span class="font-bold">Pitcher Role:</span> <%= @changeset.details.pitcher_role %></h5>
+        <% end %>
+        <h5 class="mb-4"><span class="font-bold">Grade:</span> <%= @changeset.grade %></h5>
+        <%= if position_report?(@changeset.report_type) do %>
+          <h5 class="mb-4"><span class="font-bold">Running time to first base:</span>
+          <%= @changeset.details.time_to_first %>s</h5>
+        <% end %>
         <h5><span class="font-bold">Additional Info:</span></h5>
         <ul class="mb-sm-5">
-          <li>Height: <%= @scouting_report.player.info["height"] %></li>
-          <li>Weight: <%= @scouting_report.player.info["weight"] %></li>
-          <li>Bats: <%= @scouting_report.player.info["bats"] %></li>
-          <li>Throws: <%= @scouting_report.player.info["throws"] %></li>
-          <li>DOB: <%= @scouting_report.player.info["dob"] %></li>
+          <li>Height: <%= @changeset.player.info["height"] %></li>
+          <li>Weight: <%= @changeset.player.info["weight"] %></li>
+          <li>Bats: <%= @changeset.player.info["bats"] %></li>
+          <li>Throws: <%= @changeset.player.info["throws"] %></li>
+          <li>DOB: <%= @changeset.player.info["dob"] %></li>
         </ul>
 
-        <%= if @scouting_report.report_type == 0 do %>
-          <%= render ScoutedWeb.ScoutingReportView, "_pitches_table.html", scouting_report: @scouting_report %>
+        <%= if pitcher_report?(@changeset.report_type) do %>
+          <%= render ScoutedWeb.ScoutingReportView, "_pitches_table.html", changeset: @changeset %>
         <% end %>
       </div>
 
       <div class="md:w-2/3 overflow-hidden px-4 mt-4 md:mt-0">
         <h5><span class="font-bold">Summary:</span></h5>
-        <%= @scouting_report.details["summary"] %>
+        <%= @changeset.details.summary %>
       </div>
+      <%= live_patch "Edit", class: "bg-transparent hover:bg-blue-600 text-blue-600 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded", to: Routes.live_path(@conn, ScoutedWeb.EditScoutingReportLive, @changeset) %>
+
     </div>
   </div>
 </div>

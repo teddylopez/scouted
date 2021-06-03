@@ -1,0 +1,41 @@
+<div class="position-report p-4 mt-sm-5 mt-4 mt-md-3 page-block bg-white shadow-xl rounded-md">
+  <h4 class="text-2xl mb-4">Position Player Report</h4>
+  <%= f = form_for @changeset, "#", phx_submit: "save" %>
+    <%= hidden_input f, :user_id, value: @current_user.id %>
+    <%= hidden_input f, :report_type, value: @report_type %>
+
+    <div class="flex">
+      <div class="field flex-1">
+          <%= label f, :player_id, class: "control-label" %>
+          <%= select f, :player_id, Scouted.Repo.all(Scouted.Player) |> Enum.map(&{&1.last_name, &1.id}), class: "border" %>
+      </div>
+      <div class="field flex-1">
+        <%= label f, :grade, class: "control-label" %>
+        <%= select f, :grade, [20,25,30,35,40,45,50,55,60,65,70,75,80], class: "border" %>
+        <%= error_tag f, :grade %>
+      </div>
+
+      <%= inputs_for f, :details, fn fp -> %>
+        <div class="field flex-1">
+          <%= label fp, :position, class: "control-label" %>
+          <%= select fp, :position, ["C", "1B", "2B", "SS", "3B", "LF", "CF", "RF", "DH"] %>
+          <%= error_tag fp, :grade %>
+        </div>
+        <div class="field flex-1">
+          <%= label fp, :time_to_first, class: "control-label" %>
+          <%= text_input fp, :time_to_first, class: "border" %>
+          <%= error_tag fp, :time_to_first %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="form-group">
+      <%= inputs_for f, :details, fn fp -> %>
+        <%= label fp, :summary, class: "control-label" %> <br>
+        <%= textarea fp, :summary, class: "border w-full" %>
+      <% end %>
+    </div>
+
+    <%= submit "Submit", phx_disable_with: "Saving...", class: "bg-transparent hover:bg-blue-600 text-blue-600 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded" %>
+  </form>
+</div>

@@ -1,8 +1,10 @@
 defmodule ScoutedWeb.NewScoutingReportLive do
   use ScoutedWeb, :live_view
 
+  alias ScoutedWeb.ScoutingReportView
   alias Scouted.Reports
   alias Scouted.Reports.ScoutingReport
+  alias Scouted.Reports.Details
   alias Scouted.Accounts
   alias Scouted.Repo
 
@@ -30,8 +32,12 @@ defmodule ScoutedWeb.NewScoutingReportLive do
   end
 
   @impl true
-  def handle_event("save", %{"scouting_report" => params}, socket) do
-    case Reports.create_scouting_report(params) do
+  def handle_event("save", %{"scouting_report" => scouting_report}, socket) do
+    IO.inspect(scouting_report)
+
+    # {:noreply, socket}
+
+    case Reports.create_scouting_report(scouting_report) do
       {:ok, scouting_report} ->
         {
           :noreply,
@@ -55,7 +61,8 @@ defmodule ScoutedWeb.NewScoutingReportLive do
 
     socket =
       assign(socket,
-        report_type: report_type
+        report_type: report_type,
+        details: %Scouted.Details{}
       )
 
     {:noreply, socket}
@@ -64,16 +71,5 @@ defmodule ScoutedWeb.NewScoutingReportLive do
   @impl true
   def handle_params(_params, _url, socket) do
     {:noreply, socket}
-  end
-
-  def render_report_form(0) do
-    "new_pitcher_report.html"
-  end
-
-  def render_report_form(1) do
-    "new_pos_report.html"
-  end
-
-  def render_report_form(nil) do
   end
 end

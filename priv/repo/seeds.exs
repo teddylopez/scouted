@@ -1,17 +1,18 @@
-# Script for populating the database. You can run it as:
-#
-#     mix run priv/repo/seeds.exs
-#
-# Inside the script, you can read and write to any of your
-# repositories directly:
-#
-#     Scouted.Repo.insert!(%Scouted.SomeSchema{})
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
+# # Script for populating the database. You can run it as:
+# #
+# #     mix run priv/repo/seeds.exs
+# #
+# # Inside the script, you can read and write to any of your
+# # repositories directly:
+# #
+# #     Scouted.Repo.insert!(%Scouted.SomeSchema{})
+# #
+# # We recommend using the bang functions (`insert!`, `update!`
+# # and so on) as they will fail if something goes wrong.
 
 alias Scouted.Accounts
 alias Scouted.Player
+alias Scouted.Details
 alias Scouted.Reports.ScoutingReport
 alias Scouted.Repo
 
@@ -100,21 +101,21 @@ Repo.insert!(%ScoutingReport{
   player_id: 1,
   report_type: 0,
   grade: 70,
-  details: %{
+  details: %Details{
     pitcher_role: "starter",
     position: "P",
     summary:
       "Tall and lanky RHP, fast delivery that he rushes too often. High pitch count often, might be better out of 'pen. Fringy with high ceiling potential. Plus fastball, minus command! Stuff is good enough to have success. I like this kid, must see in person...",
-    fastball_min_velo: 89,
-    fastball_max_velo: 94,
-    sinker_min_velo: 87,
-    sinker_max_velo: 90,
-    slider_min_velo: 84,
-    slider_max_velo: 86,
-    curveball_min_velo: 84,
-    curveball_max_velo: 85,
-    changeup_min_velo: 85,
-    changeup_max_velo: 86
+    fastball_min_velo: "89",
+    fastball_max_velo: "94",
+    sinker_min_velo: "87",
+    sinker_max_velo: "90",
+    slider_min_velo: "84",
+    slider_max_velo: "86",
+    curveball_min_velo: "84",
+    curveball_max_velo: "85",
+    changeup_min_velo: "85",
+    changeup_max_velo: "86"
   },
   updated_at: ~N[2019-09-21 14:53:27]
 })
@@ -124,21 +125,21 @@ Repo.insert!(%ScoutingReport{
   player_id: 1,
   report_type: 0,
   grade: 60,
-  details: %{
+  details: %Details{
     pitcher_role: "starter",
     position: "P",
     summary:
       "Tall slim pitcher could be injury prone thru season. Good fastball/offspeed combo. Lacks consistency with rushed delivery... Falls off the mound too much. Needs to attack hitters more and trust his stuff. Not sure his role in ML, 'pen or #3... Overmatches competition at his level but needs to develop more maturity. Competitive, shows promise.",
-    fastball_min_velo: 89,
-    fastball_max_velo: 94,
-    sinker_min_velo: 87,
-    sinker_max_velo: 90,
-    slider_min_velo: 84,
-    slider_max_velo: 86,
-    curveball_min_velo: 84,
-    curveball_max_velo: 85,
-    changeup_min_velo: 85,
-    changeup_max_velo: 86
+    fastball_min_velo: "89",
+    fastball_max_velo: "94",
+    sinker_min_velo: "87",
+    sinker_max_velo: "90",
+    slider_min_velo: "84",
+    slider_max_velo: "86",
+    curveball_min_velo: "84",
+    curveball_max_velo: "85",
+    changeup_min_velo: "85",
+    changeup_max_velo: "86"
   },
   updated_at: ~N[2019-08-12 14:53:27]
 })
@@ -148,21 +149,21 @@ Repo.insert!(%ScoutingReport{
   player_id: 1,
   report_type: 0,
   grade: 60,
-  details: %{
+  details: %Details{
     pitcher_role: "starter",
     position: "P",
     summary:
       "GOOD PITCHER WHO UNDERSTANDS THE GAME. LANKY DELIVERY CAN RESULT IN POOR COMMAND BUT HE CAN REALLY SLING IT! NEEDS TO GET ON SAME PAGE WITH CATCHER, SHAKES HIM OFF TOO MUCH. LOVE HIS FASTBALL BUT HE OVERTHROWS IT TOO MUCH... OFFSPEED NEEDS WORK.",
-    fastball_min_velo: 89,
-    fastball_max_velo: 94,
-    sinker_min_velo: 87,
-    sinker_max_velo: 90,
-    slider_min_velo: 84,
-    slider_max_velo: 86,
-    curveball_min_velo: 84,
-    curveball_max_velo: 85,
-    changeup_min_velo: 85,
-    changeup_max_velo: 86
+    fastball_min_velo: "89",
+    fastball_max_velo: "94",
+    sinker_min_velo: "87",
+    sinker_max_velo: "90",
+    slider_min_velo: "84",
+    slider_max_velo: "86",
+    curveball_min_velo: "84",
+    curveball_max_velo: "85",
+    changeup_min_velo: "85",
+    changeup_max_velo: "86"
   },
   updated_at: ~N[2019-05-18 14:53:27]
 })
@@ -172,21 +173,21 @@ Repo.insert!(%ScoutingReport{
   player_id: 1,
   report_type: 0,
   grade: 60,
-  details: %{
+  details: %Details{
     pitcher_role: "starter",
     position: "P",
     summary:
       "Not sure what went wrong today but he did not have it. Maybe hangover?? Got behind in count too much and fastball got hammered when hitters where expecting it. Must learn to REPEAT DELIVERY better. Looks like a solid #3...",
-    fastball_min_velo: 89,
-    fastball_max_velo: 94,
-    sinker_min_velo: 87,
-    sinker_max_velo: 90,
-    slider_min_velo: 84,
-    slider_max_velo: 86,
-    curveball_min_velo: 84,
-    curveball_max_velo: 85,
-    changeup_min_velo: 85,
-    changeup_max_velo: 86
+    fastball_min_velo: "89",
+    fastball_max_velo: "94",
+    sinker_min_velo: "87",
+    sinker_max_velo: "90",
+    slider_min_velo: "84",
+    slider_max_velo: "86",
+    curveball_min_velo: "84",
+    curveball_max_velo: "85",
+    changeup_min_velo: "85",
+    changeup_max_velo: "86"
   },
   updated_at: ~N[2018-08-12 14:53:27]
 })
@@ -196,21 +197,21 @@ Repo.insert!(%ScoutingReport{
   player_id: 1,
   report_type: 0,
   grade: 50,
-  details: %{
+  details: %Details{
     pitcher_role: "bulk",
     position: "P",
     summary:
       "Power arm in bullpen -- middle reliever. Could be closer if he learns to improve his command... Could be #3 starter on playoff team. High upside. Needs innings, Needs more time to develop.",
-    fastball_min_velo: 89,
-    fastball_max_velo: 94,
-    sinker_min_velo: 87,
-    sinker_max_velo: 90,
-    slider_min_velo: 84,
-    slider_max_velo: 86,
-    curveball_min_velo: 84,
-    curveball_max_velo: 85,
-    changeup_min_velo: 85,
-    changeup_max_velo: 86
+    fastball_min_velo: "89",
+    fastball_max_velo: "94",
+    sinker_min_velo: "87",
+    sinker_max_velo: "90",
+    slider_min_velo: "84",
+    slider_max_velo: "86",
+    curveball_min_velo: "84",
+    curveball_max_velo: "85",
+    changeup_min_velo: "85",
+    changeup_max_velo: "86"
   },
   updated_at: ~N[2019-08-16 14:53:27]
 })
@@ -220,7 +221,7 @@ Repo.insert!(%ScoutingReport{
   player_id: 4,
   report_type: 1,
   grade: 50,
-  details: %{
+  details: %Details{
     position: "CF",
     time_to_first: "4.9",
     summary:
@@ -234,7 +235,7 @@ Repo.insert!(%ScoutingReport{
   player_id: 4,
   report_type: 1,
   grade: 50,
-  details: %{
+  details: %Details{
     position: "CF",
     time_to_first: "4.8",
     summary:
@@ -248,7 +249,7 @@ Repo.insert!(%ScoutingReport{
   player_id: 4,
   report_type: 1,
   grade: 50,
-  details: %{
+  details: %Details{
     position: "CF",
     time_to_first: "4.7",
     summary:
@@ -262,7 +263,7 @@ Repo.insert!(%ScoutingReport{
   player_id: 2,
   report_type: 1,
   grade: 40,
-  details: %{
+  details: %Details{
     position: "1B",
     time_to_first: "5.3",
     summary:
@@ -276,7 +277,7 @@ Repo.insert!(%ScoutingReport{
   player_id: 2,
   report_type: 1,
   grade: 40,
-  details: %{
+  details: %Details{
     position: "DH",
     time_to_first: "5.0",
     summary:
@@ -290,7 +291,7 @@ Repo.insert!(%ScoutingReport{
   player_id: 2,
   report_type: 1,
   grade: 50,
-  details: %{
+  details: %Details{
     position: "DH",
     time_to_first: "5.3",
     summary:
@@ -304,7 +305,7 @@ Repo.insert!(%ScoutingReport{
   player_id: 4,
   report_type: 1,
   grade: 50,
-  details: %{
+  details: %Details{
     position: "CF",
     time_to_first: "4.8",
     summary:
@@ -318,7 +319,7 @@ Repo.insert!(%ScoutingReport{
   player_id: 3,
   report_type: 1,
   grade: 40,
-  details: %{
+  details: %Details{
     position: "3B",
     time_to_first: "4.9",
     summary:
@@ -332,7 +333,7 @@ Repo.insert!(%ScoutingReport{
   player_id: 3,
   report_type: 1,
   grade: 40,
-  details: %{
+  details: %Details{
     position: "3B",
     time_to_first: "4.7",
     summary:
@@ -346,18 +347,18 @@ Repo.insert!(%ScoutingReport{
   player_id: 5,
   report_type: 0,
   grade: 60,
-  details: %{
+  details: %Details{
     pitcher_role: "starter",
     summary:
       "Big strong arm from young kid. Power pitcher approach... Fastball has rise and can hit high digits... touched 99. Aggressive, sometimes too aggressive. Needs to trust his stuff more and listen to catcher. Must mix in offspeed more.",
-    fastball_min_velo: 90,
-    fastball_max_velo: 99,
-    slider_min_velo: 84,
-    slider_max_velo: 86,
-    curveball_min_velo: 77,
-    curveball_max_velo: 79,
-    changeup_min_velo: 85,
-    changeup_max_velo: 86
+    fastball_min_velo: "90",
+    fastball_max_velo: "99",
+    slider_min_velo: "84",
+    slider_max_velo: "86",
+    curveball_min_velo: "77",
+    curveball_max_velo: "79",
+    changeup_min_velo: "85",
+    changeup_max_velo: "86"
   },
   updated_at: ~N[2020-09-18 14:53:27]
 })
@@ -367,20 +368,20 @@ Repo.insert!(%ScoutingReport{
   player_id: 5,
   report_type: 0,
   grade: 60,
-  details: %{
+  details: %Details{
     pitcher_role: "starter",
     summary:
       "A stud... High, high upside, kid can throw. Knows how to pitch, mixes all pitches well. Slider not his best pitch. Plus fastball, good changeup command. Athletic pitcher, quick pickoff...",
-    fastball_min_velo: 89,
-    fastball_max_velo: 94,
-    sinker_min_velo: 87,
-    sinker_max_velo: 90,
-    slider_min_velo: 84,
-    slider_max_velo: 86,
-    curveball_min_velo: 84,
-    curveball_max_velo: 85,
-    changeup_min_velo: 85,
-    changeup_max_velo: 86
+    fastball_min_velo: "89",
+    fastball_max_velo: "94",
+    sinker_min_velo: "87",
+    sinker_max_velo: "90",
+    slider_min_velo: "84",
+    slider_max_velo: "86",
+    curveball_min_velo: "84",
+    curveball_max_velo: "85",
+    changeup_min_velo: "85",
+    changeup_max_velo: "86"
   },
   updated_at: ~N[2020-07-13 14:53:27]
 })
@@ -390,20 +391,20 @@ Repo.insert!(%ScoutingReport{
   player_id: 5,
   report_type: 0,
   grade: 60,
-  details: %{
+  details: %Details{
     pitcher_role: "starter",
     summary:
       "WOW GOOD STUFF HIGH ENERGY FUN TO WATCH. KID CAN THROW. SOLID OFFSPEED THAT COULD BE USED MORE OFTEN. GOOD INSTINCTS ON THE HILL, WORKS QUICK. ATTACKS HITTERS. MEAN. TENDENCY TO GIVE UP WHEN HE FALLS BEHIND IN COUNT. NEEDS TO TRUST HIS STUFF AND THROW IT WHEN IT COUNTS",
-    fastball_min_velo: 89,
-    fastball_max_velo: 94,
-    sinker_min_velo: 87,
-    sinker_max_velo: 90,
-    slider_min_velo: 84,
-    slider_max_velo: 86,
-    curveball_min_velo: 84,
-    curveball_max_velo: 85,
-    changeup_min_velo: 85,
-    changeup_max_velo: 86
+    fastball_min_velo: "89",
+    fastball_max_velo: "94",
+    sinker_min_velo: "87",
+    sinker_max_velo: "90",
+    slider_min_velo: "84",
+    slider_max_velo: "86",
+    curveball_min_velo: "84",
+    curveball_max_velo: "85",
+    changeup_min_velo: "85",
+    changeup_max_velo: "86"
   },
   updated_at: ~N[2021-05-10 14:53:27]
 })

@@ -45,7 +45,7 @@
                             <%= format_name(scouting_report.player) %>
                           </td>
                           <td class="px-6 py-2 whitespace-nowrap text-sm text-gray-900">
-                            <%= calculate_age(scouting_report.player.info["dob"]) %>
+                            <%= ScoutingReportView.calculate_age(scouting_report.player.info["dob"]) %>
                           </td>
                           <td class="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
                             <div class="h-6 flex justify-center">
@@ -61,7 +61,7 @@
                             <%= scouting_report.user.email %>
                           </td>
                           <td class="px-6 py-2 whitespace-nowrap text-sm">
-                            <%= convert_date(scouting_report.updated_at) %>
+                            <%= ScoutingReportView.convert_date(scouting_report.updated_at) %>
                           </td>
                         </tr>
                       <% end %>
