@@ -10,7 +10,8 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :scouted, ScoutedWeb.Endpoint,
-  url: [host: "example.com", port: 80],
+  # url: [host: "https://required-vacant-icefish.gigalixirapp.com", port: 80],
+  url: [host: "required-vacant-icefish.gigalixirapp.com", port: 443, scheme: "https"],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
@@ -45,8 +46,7 @@ config :logger, level: :info
 # We also recommend setting `force_ssl` in your endpoint, ensuring
 # no data is ever sent via http, always redirecting to https:
 #
-#     config :scouted, ScoutedWeb.Endpoint,
-#       force_ssl: [hsts: true]
+# config :scouted, ScoutedWeb.Endpoint, force_ssl: [hsts: true]
 #
 # Check `Plug.SSL` for all available options in `force_ssl`.
 
