@@ -13,16 +13,8 @@ defmodule ScoutedWeb.ScoutingReportView do
   def position_report?(1), do: true
   def position_report?(_), do: false
 
-  def render_report_form(0) do
-    "pitcher_report_form.html"
-  end
-
-  def render_report_form(1) do
-    "pos_report_form.html"
-  end
-
-  def render_report_form(nil) do
-  end
+  def render_report_form(0), do: "pitcher_report_form.html"
+  def render_report_form(1), do: "pos_report_form.html"
 
   def convert_date(date) do
     Calendar.strftime(date, "%m/%d/%Y")
@@ -36,15 +28,5 @@ defmodule ScoutedWeb.ScoutingReportView do
       true -> now.year - yyyy - 0
       false -> now.year - yyyy - 1
     end
-  end
-
-  def save_or_update(id) do
-    IO.puts("update")
-    "update"
-  end
-
-  def save_or_update do
-    IO.puts("save")
-    "save"
   end
 end

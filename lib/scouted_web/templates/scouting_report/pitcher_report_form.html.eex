@@ -1,85 +1,103 @@
-<div class="p-4 position-report mt-sm-5 mt-4 mt-md-3 page-block bg-white shadow-xl rounded-md">
+<div x-show="activeTab === 0" class="pitcher-report p-4 mt-sm-5 mt-4 mt-md-3 page-block bg-white shadow-xl rounded-md">
   <h4 class="text-2xl mb-4">Pitcher Report</h4>
-  <%= f = form_for @changeset, "#", phx_submit: "save" %>
+  <%= f = form_for @changeset, "#", phx_submit: "save", phx_change: "validate" %>
     <%= hidden_input f, :user_id, value: @current_user.id %>
-    <%= hidden_input f, :report_type, value: @report_type %>
+    <%= hidden_input f, :report_type, value: 0 %>
 
-    <div class="flex">
-      <div class="field flex-1">
-          <%= label f, :player_id, class: "control-label" %>
-          <%= select f, :player_id, Scouted.Repo.all(Scouted.Player) |> Enum.map(&{&1.last_name, &1.id}), class: "border" %>
+    <div class="flex flex-col md:flex-row justify-between pb-4">
+      <div class="field flex-1 mb-2">
+          <%= label f, :player_id, class: "font-semibold control-label" %>
+          <%= select f, :player_id, Scouted.Repo.all(Scouted.Player) |> Enum.map(&{&1.last_name, &1.id}), [class: "p-1 border", prompt: ""] %>
+          <%= error_tag f, :player_id %>
       </div>
-      <div class="field flex-1">
-          <%= label f, :grade, class: "control-label" %>
-          <%= select f, :grade, [20,25,30,35,40,45,50,55,60,65,70,75,80], class: "border" %>
+      <div class="field flex-1 mb-2">
+          <%= label f, :grade, class: "font-semibold control-label" %>
+          <%= select f, :grade, [20,25,30,35,40,45,50,55,60,65,70,75,80], [class: "p-1 border", prompt: ""] %>
+          <%= error_tag f, :grade %>
       </div>
-      <div class="field flex-1">
+      <div class="field flex-1 mb-2">
         <%= inputs_for f, :details, fn fp -> %>
-          <%= label fp, :pitcher_role, class: "control-label" %>
-          <%= select fp, :pitcher_role, ["Starter", "Bulk", "Reliever"], class: "border" %>
+          <%= label fp, :pitcher_role, class: "font-semibold control-label" %>
+          <%= select fp, :pitcher_role, ["Starter", "Bulk", "Reliever"], [class: "p-1 border", prompt: ""] %>
+          <%= error_tag fp, :pitcher_role %>
         <% end %>
       </div>
     </div>
 
     <div class="form-group">
       <%= inputs_for f, :details, fn fp -> %>
-        <%= label fp, :summary, class: "control-label" %> <br>
-        <%= textarea fp, :summary, class: "border w-full" %>
+        <%= label fp, :summary, class: "font-semibold control-label" %> <br>
+        <%= textarea fp, :summary, [class: "p-2 border w-full h-60", placeholder: "Written report...", phx_debounce: "blur"] %>
+        <%= error_tag fp, :summary %>
       <% end %>
     </div>
 
     <%= inputs_for f, :details, fn fp -> %>
-      <div class="form-group">
-        <%= label fp, :fastball_max_velo, class: "control-label" %>
-        <%= number_input fp, :fastball_max_velo, class: "border" %>
+      <%= hidden_input fp, :report_type, value: 0 %>
+
+      <div class="card" data-container="fastball">
+        <div class="form-group py-5">
+          <span class="mr-2 font-semibold">Fastball Velocity:</span>
+          <%= number_input fp, :fastball_min_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Min"] %>
+          <%= number_input fp, :fastball_max_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Max"] %>
+          <%= error_tag fp, :fastball_min_velo %>
+          <%= error_tag fp, :fastball_max_velo %>
+        </div>
       </div>
-      <div class="form-group">
-        <%= label fp, :fastball_min_velo, class: "control-label" %>
-        <%= number_input fp, :fastball_min_velo, class: "border" %>
+
+      <div class="card" data-container="sinker">
+        <div class="form-group py-5">
+          <span class="mr-2 font-semibold">Sinker Velocity:</span>
+          <%= number_input fp, :sinker_min_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Min"]  %>
+          <%= number_input fp, :sinker_max_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Max"]  %>
+          <%= error_tag fp, :sinker_min_velo %>
+          <%= error_tag fp, :sinker_max_velo %>
+        </div>
       </div>
-      <div class="form-group">
-        <%= label fp, :sinker_min_velo, class: "control-label" %>
-        <%= number_input fp, :sinker_min_velo, class: "border" %>
+
+      <div class="card" data-container="slider">
+        <div class="form-group py-5">
+          <span class="mr-2 font-semibold">Slider Velocity:</span>
+          <%= number_input fp, :slider_min_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Min"] %>
+          <%= number_input fp, :slider_max_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Max"] %>
+          <%= error_tag fp, :slider_min_velo %>
+          <%= error_tag fp, :slider_max_velo %>
+        </div>
       </div>
-      <div class="form-group">
-        <%= label fp, :sinker_max_velo, class: "control-label" %>
-        <%= number_input fp, :sinker_max_velo, class: "border" %>
+
+      <div class="card" data-container="curveball">
+        <div class="form-group py-5">
+          <span class="mr-2 font-semibold">Curveball Velocity:</span>
+          <%= number_input fp, :curveball_min_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Min"] %>
+          <%= number_input fp, :curveball_max_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Max"] %>
+          <%= error_tag fp, :curveball_min_velo %>
+          <%= error_tag fp, :curveball_max_velo %>
+        </div>
       </div>
-      <div class="form-group">
-        <%= label fp, :slider_min_velo, class: "control-label" %>
-        <%= number_input fp, :slider_min_velo, class: "border" %>
+
+      <div class="card" data-container="curveball">
+        <div class="form-group py-5">
+          <span class="mr-2 font-semibold">Changeup Velocity:</span>
+          <%= number_input fp, :changeup_min_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Min"] %>
+          <%= number_input fp, :changeup_max_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Max"] %>
+          <%= error_tag fp, :changeup_min_velo %>
+          <%= error_tag fp, :changeup_max_velo %>
+        </div>
       </div>
-      <div class="form-group">
-        <%= label fp, :slider_max_velo, class: "control-label" %>
-        <%= number_input fp, :slider_max_velo, class: "border" %>
-      </div>
-      <div class="form-group">
-        <%= label fp, :curveball_min_velo, class: "control-label" %>
-        <%= number_input fp, :curveball_min_velo, class: "border" %>
-      </div>
-      <div class="form-group">
-        <%= label fp, :curveball_max_velo, class: "control-label" %>
-        <%= number_input fp, :curveball_max_velo, class: "border" %>
-      </div>
-      <div class="form-group">
-        <%= label fp, :changeup_min_velo, class: "control-label" %>
-        <%= number_input fp, :changeup_min_velo, class: "border" %>
-      </div>
-      <div class="form-group">
-        <%= label fp, :changeup_max_velo, class: "control-label" %>
-        <%= number_input fp, :changeup_max_velo, class: "border" %>
-      </div>
-      <div class="form-group">
-        <%= label fp, :other_name, class: "control-label" %>
-        <%= number_input fp, :other_name, class: "border" %>
-      </div>
-      <div class="form-group">
-        <%= label fp, :other_min_velo, class: "control-label" %>
-        <%= number_input fp, :other_min_velo, class: "border" %>
-      </div>
-      <div class="form-group">
-        <%= label fp, :other_max_velo, class: "control-label" %>
-        <%= number_input fp, :other_max_velo, class: "border" %>
+
+      <div class="card" data-container="other">
+        <div class="form-group pt-5 pb-2">
+          <span class="mr-2 font-semibold">Other:</span>
+          <%= text_input fp, :other_name, [class: "border grouped_inputs pl-1", placeholder: "Pitch name..."] %>
+          <%= error_tag fp, :other_name %>
+        </div>
+        <div class="form-group pb-5">
+          <span class="mr-2 font-semibold">Other Pitch Velocity:</span>
+          <%= number_input fp, :other_min_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Min"] %>
+          <%= number_input fp, :other_max_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Max"] %>
+          <%= error_tag fp, :other_min_velo %>
+          <%= error_tag fp, :other_max_velo %>
+        </div>
       </div>
     <% end %>
 

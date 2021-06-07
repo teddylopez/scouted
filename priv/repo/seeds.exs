@@ -102,7 +102,7 @@ Repo.insert!(%ScoutingReport{
   report_type: 0,
   grade: 70,
   details: %Details{
-    pitcher_role: "starter",
+    pitcher_role: "Starter",
     position: "P",
     summary:
       "Tall and lanky RHP, fast delivery that he rushes too often. High pitch count often, might be better out of 'pen. Fringy with high ceiling potential. Plus fastball, minus command! Stuff is good enough to have success. I like this kid, must see in person...",
@@ -126,7 +126,7 @@ Repo.insert!(%ScoutingReport{
   report_type: 0,
   grade: 60,
   details: %Details{
-    pitcher_role: "starter",
+    pitcher_role: "Starter",
     position: "P",
     summary:
       "Tall slim pitcher could be injury prone thru season. Good fastball/offspeed combo. Lacks consistency with rushed delivery... Falls off the mound too much. Needs to attack hitters more and trust his stuff. Not sure his role in ML, 'pen or #3... Overmatches competition at his level but needs to develop more maturity. Competitive, shows promise.",
@@ -150,7 +150,7 @@ Repo.insert!(%ScoutingReport{
   report_type: 0,
   grade: 60,
   details: %Details{
-    pitcher_role: "starter",
+    pitcher_role: "Starter",
     position: "P",
     summary:
       "GOOD PITCHER WHO UNDERSTANDS THE GAME. LANKY DELIVERY CAN RESULT IN POOR COMMAND BUT HE CAN REALLY SLING IT! NEEDS TO GET ON SAME PAGE WITH CATCHER, SHAKES HIM OFF TOO MUCH. LOVE HIS FASTBALL BUT HE OVERTHROWS IT TOO MUCH... OFFSPEED NEEDS WORK.",
@@ -174,7 +174,7 @@ Repo.insert!(%ScoutingReport{
   report_type: 0,
   grade: 60,
   details: %Details{
-    pitcher_role: "starter",
+    pitcher_role: "Starter",
     position: "P",
     summary:
       "Not sure what went wrong today but he did not have it. Maybe hangover?? Got behind in count too much and fastball got hammered when hitters where expecting it. Must learn to REPEAT DELIVERY better. Looks like a solid #3...",
@@ -198,7 +198,7 @@ Repo.insert!(%ScoutingReport{
   report_type: 0,
   grade: 50,
   details: %Details{
-    pitcher_role: "bulk",
+    pitcher_role: "Bulk",
     position: "P",
     summary:
       "Power arm in bullpen -- middle reliever. Could be closer if he learns to improve his command... Could be #3 starter on playoff team. High upside. Needs innings, Needs more time to develop.",
@@ -348,7 +348,7 @@ Repo.insert!(%ScoutingReport{
   report_type: 0,
   grade: 60,
   details: %Details{
-    pitcher_role: "starter",
+    pitcher_role: "Starter",
     summary:
       "Big strong arm from young kid. Power pitcher approach... Fastball has rise and can hit high digits... touched 99. Aggressive, sometimes too aggressive. Needs to trust his stuff more and listen to catcher. Must mix in offspeed more.",
     fastball_min_velo: "90",
@@ -369,7 +369,7 @@ Repo.insert!(%ScoutingReport{
   report_type: 0,
   grade: 60,
   details: %Details{
-    pitcher_role: "starter",
+    pitcher_role: "Starter",
     summary:
       "A stud... High, high upside, kid can throw. Knows how to pitch, mixes all pitches well. Slider not his best pitch. Plus fastball, good changeup command. Athletic pitcher, quick pickoff...",
     fastball_min_velo: "89",
@@ -392,7 +392,7 @@ Repo.insert!(%ScoutingReport{
   report_type: 0,
   grade: 60,
   details: %Details{
-    pitcher_role: "starter",
+    pitcher_role: "Starter",
     summary:
       "WOW GOOD STUFF HIGH ENERGY FUN TO WATCH. KID CAN THROW. SOLID OFFSPEED THAT COULD BE USED MORE OFTEN. GOOD INSTINCTS ON THE HILL, WORKS QUICK. ATTACKS HITTERS. MEAN. TENDENCY TO GIVE UP WHEN HE FALLS BEHIND IN COUNT. NEEDS TO TRUST HIS STUFF AND THROW IT WHEN IT COUNTS",
     fastball_min_velo: "89",

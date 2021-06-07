@@ -1,4 +1,4 @@
-<table class="w-full mt-4">
+<table class="w-full my-4">
   <thead class="border-gray-500 border-b">
     <th>Pitch</th>
     <th>Min Velo</th>
@@ -10,7 +10,7 @@
       <%= if @changeset.details.fastball_min_velo do %>
         <td>Fastball</td>
         <td><%= @changeset.details.fastball_min_velo %></td>
-        <td><%= @changeset.details.fastball_min_velo %></td>
+        <td><%= @changeset.details.fastball_max_velo %></td>
       <% end %>
     </tr>
 
@@ -18,7 +18,7 @@
       <%= if @changeset.details.sinker_min_velo do %>
         <td>Sinker</td>
         <td><%= @changeset.details.sinker_min_velo %></td>
-        <td><%= @changeset.details.sinker_min_velo %></td>
+        <td><%= @changeset.details.sinker_max_velo %></td>
       <% end %>
     </tr>
 
@@ -26,7 +26,7 @@
       <%= if @changeset.details.slider_min_velo do %>
         <td>Slider</td>
         <td><%= @changeset.details.slider_min_velo %></td>
-        <td><%= @changeset.details.slider_min_velo %></td>
+        <td><%= @changeset.details.slider_max_velo %></td>
       <% end %>
     </tr>
 
@@ -34,7 +34,7 @@
       <%= if @changeset.details.curveball_min_velo do %>
         <td>Curveball</td>
         <td><%= @changeset.details.curveball_min_velo %></td>
-        <td><%= @changeset.details.curveball_min_velo %></td>
+        <td><%= @changeset.details.curveball_max_velo %></td>
       <% end %>
     </tr>
 
@@ -42,15 +42,15 @@
       <%= if @changeset.details.changeup_min_velo do %>
         <td>Changeup</td>
         <td><%= @changeset.details.changeup_min_velo %></td>
-        <td><%= @changeset.details.changeup_min_velo %></td>
+        <td><%= @changeset.details.changeup_max_velo %></td>
       <% end %>
     </tr>
 
     <tr class="border-gray-200 text-center border-b">
       <%= if @changeset.details.other_min_velo do %>
-        <td><%= @changeset.details.other_name %></td>
+        <td><%= String.capitalize(@changeset.details.other_name) %></td>
         <td><%= @changeset.details.other_min_velo %></td>
-        <td><%= @changeset.details.other_min_velo %></td>
+        <td><%= @changeset.details.other_max_velo %></td>
       <% end %>
     </tr>
   </tbody>

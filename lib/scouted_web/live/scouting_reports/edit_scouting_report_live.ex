@@ -24,10 +24,18 @@ defmodule ScoutedWeb.EditScoutingReportLive do
     {:ok, socket}
   end
 
+  def handle_event("validate", %{"scouting_report" => params}, socket) do
+    changeset =
+      %ScoutingReport{}
+      |> Reports.change_scouting_report(params)
+      |> Map.put(:action, :insert)
+
+    {:noreply, assign(socket, changeset: changeset)}
+  end
+
   @impl true
   def handle_event("save", %{"scouting_report" => scouting_report} = params, socket) do
     report_id = Reports.get_scouting_report!(socket.assigns.scouting_report.id)
-    {:noreply, socket}
 
     case Reports.update_scouting_report(report_id, scouting_report) do
       {:ok, scouting_report} ->
