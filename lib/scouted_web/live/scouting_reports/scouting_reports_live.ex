@@ -32,7 +32,7 @@ defmodule ScoutedWeb.ScoutingReportsLive do
   end
 
   @impl true
-  def handle_event("select-report-type", %{"report-type" => report_type} = params, socket) do
+  def handle_event("select-report-type", %{"report-type" => report_type}, socket) do
     socket =
       push_patch(socket,
         to:
@@ -136,7 +136,7 @@ defmodule ScoutedWeb.ScoutingReportsLive do
     end
   end
 
-  defp translate_report_type(%{} = params) do
+  defp translate_report_type(%{} = _params) do
     "all"
   end
 

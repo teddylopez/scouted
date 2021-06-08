@@ -8,6 +8,7 @@ defmodule ScoutedWeb.EditScoutingReportLive do
   alias Scouted.Player
   alias Scouted.Repo
 
+  @impl true
   def mount(%{"id" => id}, _, socket) do
     scouting_report = Reports.get_scouting_report!(String.to_integer(id))
     changeset = Reports.change_scouting_report(scouting_report)
@@ -34,7 +35,7 @@ defmodule ScoutedWeb.EditScoutingReportLive do
   end
 
   @impl true
-  def handle_event("save", %{"scouting_report" => scouting_report} = params, socket) do
+  def handle_event("save", %{"scouting_report" => scouting_report}, socket) do
     report_id = Reports.get_scouting_report!(socket.assigns.scouting_report.id)
 
     case Reports.update_scouting_report(report_id, scouting_report) do

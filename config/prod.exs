@@ -11,7 +11,7 @@ use Mix.Config
 # before starting your production server.
 config :scouted, ScoutedWeb.Endpoint,
   # url: [host: "https://required-vacant-icefish.gigalixirapp.com", port: 80],
-  url: [host: "required-vacant-icefish.gigalixirapp.com", port: 443, scheme: "https"],
+  url: [host: "scouted.gigalixirapp.com", port: 443, scheme: "https"],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production

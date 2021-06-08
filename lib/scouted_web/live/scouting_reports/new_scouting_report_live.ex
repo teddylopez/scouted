@@ -4,7 +4,7 @@ defmodule ScoutedWeb.NewScoutingReportLive do
   alias ScoutedWeb.ScoutingReportView
   alias Scouted.Reports
   alias Scouted.Reports.ScoutingReport
-  alias Scouted.Reports.Details
+  alias Scouted.Details
   alias Scouted.Accounts
   alias Scouted.Repo
 
@@ -32,7 +32,7 @@ defmodule ScoutedWeb.NewScoutingReportLive do
 
   @impl true
   def handle_event("new-report-type", %{"report-type" => report_type}, socket) do
-    players = Scouted.Repo.all(Scouted.Player) |> Enum.map(&{&1.last_name, &1.id})
+    players = Repo.all(Scouted.Player) |> Enum.map(&{&1.last_name, &1.id})
 
     socket =
       assign(socket,
@@ -74,7 +74,7 @@ defmodule ScoutedWeb.NewScoutingReportLive do
     socket =
       assign(socket,
         report_type: report_type,
-        details: %Scouted.Details{}
+        details: %Details{}
       )
 
     {:noreply, socket}
