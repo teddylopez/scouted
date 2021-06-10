@@ -9,8 +9,9 @@ defmodule ScoutedWeb.EditScoutingReportLive do
   alias Scouted.Repo
 
   @impl true
-  def mount(%{"id" => id}, _, socket) do
+  def mount(%{"id" => id}, %{"user_token" => user_token} = _session, socket) do
     scouting_report = Reports.get_scouting_report!(String.to_integer(id))
+    current_user_id = Accounts.get_user_by_session_token(user_token).id
     changeset = Reports.change_scouting_report(scouting_report)
 
     socket =
@@ -18,11 +19,18 @@ defmodule ScoutedWeb.EditScoutingReportLive do
         changeset: changeset,
         scouting_report: scouting_report,
         report_type: scouting_report.report_type,
-        current_user: Accounts.get_user!(scouting_report.user_id),
+        author: Accounts.get_user!(scouting_report.user_id),
         player: Repo.get_by(Player, id: scouting_report.player_id)
       )
 
-    {:ok, socket}
+    if current_user_id == scouting_report.user_id do
+      {:ok, socket}
+    else
+      {:ok,
+       socket
+       |> put_flash(:error, "You don't have permission to edit this report.")
+       |> redirect(to: Routes.scouting_report_path(socket, :show, scouting_report))}
+    end
   end
 
   def handle_event("validate", %{"scouting_report" => params}, socket) do

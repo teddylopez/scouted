@@ -15,7 +15,7 @@ defmodule ScoutedWeb.NewScoutingReportLive do
     socket =
       assign(socket,
         changeset: changeset,
-        current_user: Accounts.get_user_by_session_token(user_token)
+        author: Accounts.get_user_by_session_token(user_token)
       )
 
     {:ok, socket, temporary_assigns: [report_type: nil]}
