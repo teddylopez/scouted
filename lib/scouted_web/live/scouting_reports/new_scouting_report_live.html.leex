@@ -3,7 +3,7 @@
 
     <button class="mb-2 bg-transparent hover:bg-blue-600 text-blue-600 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded" :class="{ 'bg-blue-600 active-font' : activeTab === 0 }" @click="activeTab = 0">Pitcher Report</button>
 
-    <button class="bg-transparent hover:bg-blue-600 text-blue-600 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded" :class="{ 'bg-blue-600 active-font' : activeTab === 1 }" @click="activeTab = 1">Position Player Report</button>
+    <button class="mb-4 bg-transparent hover:bg-blue-600 text-blue-600 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded" :class="{ 'bg-blue-600 active-font' : activeTab === 1 }" @click="activeTab = 1">Position Player Report</button>
 
     <%= render ScoutingReportView,
       "pitcher_report_form.html",
