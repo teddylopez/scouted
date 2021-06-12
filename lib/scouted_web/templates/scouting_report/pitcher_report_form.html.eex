@@ -97,7 +97,7 @@
               <%= error_tag fp, :other_name %>
             </div>
             <div class="form-group pb-5">
-              <span class="mr-2 font-semibold">Other Pitch Velocity:</span>
+              <span class="mr-2 font-semibold">Other Velocity:</span>
               <%= number_input fp, :other_min_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Min"] %>
               <%= number_input fp, :other_max_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Max"] %>
               <%= error_tag fp, :other_min_velo %>
