@@ -35,74 +35,72 @@
     <div class="my-4">
       <%= inputs_for f, :details, fn fp -> %>
         <%= hidden_input fp, :report_type, value: 0 %>
-
         <h4 class="text-xl">Pitch Velocities</h4>
-        <div class="flex justify-around">
-          <div class="card" data-container="fastball">
-            <div class="form-group py-5">
-              <span class="mr-2 font-semibold">Fastball Velocity:</span>
-              <%= number_input fp, :fastball_min_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Min"] %>
-              <%= number_input fp, :fastball_max_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Max"] %>
-              <%= error_tag fp, :fastball_min_velo %>
-              <%= error_tag fp, :fastball_max_velo %>
+        <div class="grid grid-cols-3">
+          <div class="col">
+            <div class="card" data-container="fastball">
+              <div class="form-group py-5">
+                <span class="mr-2 font-semibold">Fastball Velocity:</span>
+                <%= number_input fp, :fastball_min_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Min"] %>
+                <%= number_input fp, :fastball_max_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Max"] %>
+                <%= error_tag fp, :fastball_min_velo %>
+                <%= error_tag fp, :fastball_max_velo %>
+              </div>
+            </div>
+            <div class="card" data-container="sinker">
+              <div class="form-group py-5">
+                <span class="mr-2 font-semibold">Sinker Velocity:</span>
+                <%= number_input fp, :sinker_min_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Min"]  %>
+                <%= number_input fp, :sinker_max_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Max"]  %>
+                <%= error_tag fp, :sinker_min_velo %>
+                <%= error_tag fp, :sinker_max_velo %>
+              </div>
             </div>
           </div>
-
-          <div class="card" data-container="sinker">
-            <div class="form-group py-5">
-              <span class="mr-2 font-semibold">Sinker Velocity:</span>
-              <%= number_input fp, :sinker_min_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Min"]  %>
-              <%= number_input fp, :sinker_max_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Max"]  %>
-              <%= error_tag fp, :sinker_min_velo %>
-              <%= error_tag fp, :sinker_max_velo %>
+          <div class="col">
+            <div class="card" data-container="slider">
+              <div class="form-group py-5">
+                <span class="mr-2 font-semibold">Slider Velocity:</span>
+                <%= number_input fp, :slider_min_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Min"] %>
+                <%= number_input fp, :slider_max_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Max"] %>
+                <%= error_tag fp, :slider_min_velo %>
+                <%= error_tag fp, :slider_max_velo %>
+              </div>
+            </div>
+            <div class="card" data-container="curveball">
+              <div class="form-group py-5">
+                <span class="mr-2 font-semibold">Curveball Velocity:</span>
+                <%= number_input fp, :curveball_min_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Min"] %>
+                <%= number_input fp, :curveball_max_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Max"] %>
+                <%= error_tag fp, :curveball_min_velo %>
+                <%= error_tag fp, :curveball_max_velo %>
+              </div>
             </div>
           </div>
-
-          <div class="card" data-container="slider">
-            <div class="form-group py-5">
-              <span class="mr-2 font-semibold">Slider Velocity:</span>
-              <%= number_input fp, :slider_min_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Min"] %>
-              <%= number_input fp, :slider_max_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Max"] %>
-              <%= error_tag fp, :slider_min_velo %>
-              <%= error_tag fp, :slider_max_velo %>
-            </div>
-          </div>
-        </div>
-
-        <div class="flex justify-around">
+        <div class="col">
           <div class="card" data-container="curveball">
-            <div class="form-group py-5">
-              <span class="mr-2 font-semibold">Curveball Velocity:</span>
-              <%= number_input fp, :curveball_min_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Min"] %>
-              <%= number_input fp, :curveball_max_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Max"] %>
-              <%= error_tag fp, :curveball_min_velo %>
-              <%= error_tag fp, :curveball_max_velo %>
-            </div>
-          </div>
-
-          <div class="card" data-container="curveball">
-            <div class="form-group py-5">
-              <span class="mr-2 font-semibold">Changeup Velocity:</span>
-              <%= number_input fp, :changeup_min_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Min"] %>
-              <%= number_input fp, :changeup_max_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Max"] %>
-              <%= error_tag fp, :changeup_min_velo %>
-              <%= error_tag fp, :changeup_max_velo %>
-            </div>
-          </div>
-
-          <div class="card" data-container="other">
-            <div class="form-group pt-5 pb-2">
-              <span class="mr-2 font-semibold">Other:</span>
-              <%= text_input fp, :other_name, [class: "border grouped_inputs pl-1", placeholder: "Pitch name..."] %>
-              <%= error_tag fp, :other_name %>
-            </div>
-            <div class="form-group pb-5">
-              <span class="mr-2 font-semibold">Other Velocity:</span>
-              <%= number_input fp, :other_min_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Min"] %>
-              <%= number_input fp, :other_max_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Max"] %>
-              <%= error_tag fp, :other_min_velo %>
-              <%= error_tag fp, :other_max_velo %>
-            </div>
+             <div class="form-group py-5">
+               <span class="mr-2 font-semibold">Changeup Velocity:</span>
+               <%= number_input fp, :changeup_min_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Min"] %>
+               <%= number_input fp, :changeup_max_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Max"] %>
+               <%= error_tag fp, :changeup_min_velo %>
+               <%= error_tag fp, :changeup_max_velo %>
+             </div>
+           </div>
+           <div class="card" data-container="other">
+             <div class="form-group pt-5 pb-2">
+               <span class="mr-2 font-semibold">Other:</span>
+               <%= text_input fp, :other_name, [class: "border grouped_inputs pl-1", placeholder: "Pitch name..."] %>
+               <%= error_tag fp, :other_name %>
+             </div>
+             <div class="form-group pb-5">
+               <span class="mr-2 font-semibold">Other Velocity:</span>
+               <%= number_input fp, :other_min_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Min"] %>
+               <%= number_input fp, :other_max_velo, [class: "border grouped_inputs w-16 pl-1", placeholder: "Max"] %>
+               <%= error_tag fp, :other_min_velo %>
+               <%= error_tag fp, :other_max_velo %>
+             </div>
+           </div>
           </div>
         </div>
       <% end %>
