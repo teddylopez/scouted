@@ -31,6 +31,14 @@
       <% end %>
     </div>
 
+    <div class="flex">
+      <div class="field flex-1 mb-2">
+        <%= inputs_for f, :details, fn fp -> %>
+          <%= render ScoutedWeb.SharedView, "_date_picker.html", form: fp %>
+        <% end %>
+      </div>
+    </div>
+
     <div class="form-group pb-4">
       <%= inputs_for f, :details, fn fp -> %>
         <%= label fp, :summary, class: "font-semibold control-label" %>

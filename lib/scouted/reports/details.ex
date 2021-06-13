@@ -4,6 +4,7 @@ defmodule Scouted.Details do
   import Ecto.Changeset
 
   embedded_schema do
+    field :date_seen
     field :report_type
     field :summary
     field :position
@@ -27,6 +28,7 @@ defmodule Scouted.Details do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [
+      :date_seen,
       :report_type,
       :summary,
       :position,
