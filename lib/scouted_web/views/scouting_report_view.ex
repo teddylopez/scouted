@@ -29,4 +29,17 @@ defmodule ScoutedWeb.ScoutingReportView do
       false -> now.year - yyyy - 1
     end
   end
+
+  def calculate_age(birthday, date_seen) do
+    [mm, dd, yyyy] = date_seen |> String.split("/") |> Enum.map(&String.to_integer/1)
+    {:ok, new_date_seen} = Date.new(yyyy, mm, dd)
+
+    [mm, dd, yyyy] = birthday |> String.split("/") |> Enum.map(&String.to_integer/1)
+    {:ok, new_birthday} = Date.new(yyyy, mm, dd)
+
+    case new_date_seen.month > mm || (new_date_seen.month == mm && new_date_seen.day >= dd) do
+      true -> new_date_seen.year - yyyy - 0
+      false -> new_date_seen.year - yyyy - 1
+    end
+  end
 end
