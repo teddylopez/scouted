@@ -8,12 +8,14 @@
     <%= render ScoutingReportView,
       "pitcher_report_form.html",
       changeset: @changeset,
+      scouting_report: nil,
       author: @author,
       report_type: @report_type %>
 
     <%= render ScoutingReportView,
       "pos_report_form.html",
       changeset: @changeset,
+      scouting_report: nil,
       author: @author,
       report_type: @report_type %>
   </div>
