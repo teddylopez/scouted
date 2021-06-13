@@ -1,4 +1,4 @@
-<div x-show="activeTab === 0" class="pitcher-report p-4 mt-sm-5  mt-md-3 page-block bg-white shadow-xl rounded-md">
+<div x-show="activeTab === 0" class="pitcher-report p-4 mt-sm-5 mt-4 mt-md-3 page-block bg-white shadow-xl rounded-md">
   <h4 class="text-2xl mb-4">Pitcher Report</h4>
   <%= f = form_for @changeset, "#", phx_submit: "save", phx_change: "validate" %>
     <%= hidden_input f, :user_id, value: @author.id %>

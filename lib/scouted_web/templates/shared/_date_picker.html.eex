@@ -5,7 +5,7 @@
         <label for="datepicker" class="font-bold mb-1 block">Date Seen</label>
         <div class="relative">
           <%= hidden_input @form, :date_seen, ":value": "datepickerValue" %>
-          <input type="text" x-on:click="showDatepicker = !showDatepicker" x-model="datepickerValue" x-on:keydown.escape="showDatepicker = false" class="border w-full pl-4 pr-10 py-3 leading-none rounded-lg shadow-sm focus:outline-none font-medium focus:ring focus:ring-blue-600 focus:ring-opacity-50" placeholder="Select date" readonly />
+          <input type="text" x-on:click="showDatepicker = !showDatepicker" x-model="datepickerValue" x-on:keydown.escape="showDatepicker = false" class="cursor-pointer border w-full pl-4 pr-10 py-3 leading-none rounded-lg shadow-sm focus:outline-none font-medium focus:ring focus:ring-blue-600 focus:ring-opacity-50" placeholder="Select date" readonly />
 
           <div class="absolute top-0 right-0 px-3 py-2">
             <svg class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
