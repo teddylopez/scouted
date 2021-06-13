@@ -7,11 +7,13 @@
       <% end %>
 
       <div class="pagination-page-number">
-        <%= for i <- (@options.page - 1)..(@options.page + 1), i > 0 do %>
-          <%= if i <= ceil(@total_reports / @options.per_page) do %>
-            <div class="page">
-              <%= ScoutingReportsLive.pagination_link(@socket, i, i, @options, (if i == @options.page, do: "bg-blue-600 text-white")) %>
-            </div>
+        <%= unless ceil(@total_reports / @options.per_page) == 1 do %>
+          <%= for i <- (@options.page - 1)..(@options.page + 1), i > 0 do %>
+            <%= if i <= ceil(@total_reports / @options.per_page) do %>
+              <div class="page">
+                <%= ScoutingReportsLive.pagination_link(@socket, i, i, @options, (if i == @options.page, do: "bg-blue-600 text-white")) %>
+              </div>
+            <% end %>
           <% end %>
         <% end %>
       </div>
