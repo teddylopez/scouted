@@ -26,6 +26,11 @@ Accounts.register_user(%{
   password: "password"
 })
 
+Accounts.register_user(%{
+  email: "guest@scouted.com",
+  password: "password"
+})
+
 Repo.insert!(%Player{
   id: 1,
   first_name: "Tyler",

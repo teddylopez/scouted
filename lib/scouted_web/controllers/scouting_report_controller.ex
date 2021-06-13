@@ -62,6 +62,6 @@ defmodule ScoutedWeb.ScoutingReportController do
 
     conn
     |> put_flash(:info, "Scouting report deleted successfully.")
-    |> redirect(to: Routes.scouting_report_path(conn, :index))
+    |> redirect(to: "/")
   end
 end
