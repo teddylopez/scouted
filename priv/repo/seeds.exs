@@ -245,7 +245,8 @@ Repo.insert!(%ScoutingReport{
     position: "CF",
     time_to_first: "4.8",
     summary:
-      "Good young player, looks like he has fun every day. Fringy power -- more line drive hitter. Above avg runner that can swipe bags, get too greedy sometimes. Needs to hit better for his position and role."
+      "Good young player, looks like he has fun every day. Fringy power -- more line drive hitter. Above avg runner that can swipe bags, get too greedy sometimes. Needs to hit better for his position and role.",
+    date_seen: "09/22/2019"
   },
   updated_at: ~N[2019-09-22 14:53:27]
 })
