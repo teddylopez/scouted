@@ -12,7 +12,7 @@
       </div>
       <div class="field flex-1 mb-2">
           <%= label f, :grade, class: "font-semibold control-label" %>
-          <%= select f, :grade, [20,25,30,35,40,45,50,55,60,65,70,75,80], [class: "p-1 border", prompt: ""] %>
+          <%= select f, :grade, grade_scale, [class: "p-1 border", prompt: ""] %>
           <%= error_tag f, :grade %>
       </div>
       <div class="field flex-1 mb-2">

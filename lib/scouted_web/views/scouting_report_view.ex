@@ -20,6 +20,10 @@ defmodule ScoutedWeb.ScoutingReportView do
     Calendar.strftime(date, "%m/%d/%Y")
   end
 
+  def grade_scale do
+    [20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80]
+  end
+
   def calculate_age(date) do
     [mm, dd, yyyy] = date |> String.split("/") |> Enum.map(&String.to_integer/1)
     now = Date.utc_today()
