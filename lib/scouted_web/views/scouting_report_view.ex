@@ -1,6 +1,11 @@
 defmodule ScoutedWeb.ScoutingReportView do
   use ScoutedWeb, :view
 
+  alias Scouted.Accounts.User
+  alias Scouted.Reports.ScoutingReport
+  alias Scouted.Repo
+  import Ecto.Query, only: [from: 2]
+
   def format_name(player) do
     "#{player.first_name} #{player.last_name}"
   end
@@ -45,5 +50,17 @@ defmodule ScoutedWeb.ScoutingReportView do
       true -> new_date_seen.year - yyyy - 0
       false -> new_date_seen.year - yyyy - 1
     end
+  end
+
+  def author_type_options do
+    Repo.all(
+      from(sr in ScoutingReport,
+        join: u in User,
+        on: sr.user_id == u.id,
+        group_by: u.id,
+        order_by: u.email,
+        select: {u.email, u.id}
+      )
+    )
   end
 end

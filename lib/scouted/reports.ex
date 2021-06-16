@@ -7,6 +7,7 @@ defmodule Scouted.Reports do
   alias Scouted.Repo
 
   alias Scouted.Reports.ScoutingReport
+  alias Scouted.Accounts.User
 
   @doc """
   Returns the list of scouting_reports.
@@ -18,11 +19,15 @@ defmodule Scouted.Reports do
 
   """
   def list_scouting_reports do
-    Repo.all(from report in ScoutingReport, preload: [:player, :user])
+    Repo.all(from(scouting_report in ScoutingReport))
   end
 
   def list_scouting_reports(criteria) when is_list(criteria) do
-    query = from(scouting_report in ScoutingReport, preload: [:player, :user])
+    query =
+      from(scouting_report in ScoutingReport,
+        join: u in assoc(scouting_report, :user),
+        preload: [:player, :user]
+      )
 
     Enum.reduce(criteria, query, fn
       {:paginate, %{page: page, per_page: per_page}}, query ->
@@ -41,6 +46,15 @@ defmodule Scouted.Reports do
           1 -> from q in query, where: q.report_type == 1
           nil -> query
         end
+
+      {:author_id, %{author_id: author_id}}, query ->
+        case author_id do
+          "all" ->
+            query
+
+          author_id ->
+            from q in query, where: q.user_id == ^author_id
+        end
     end)
     |> Repo.all()
   end
@@ -49,25 +63,65 @@ defmodule Scouted.Reports do
     Repo.aggregate(ScoutingReport, :count, :id)
   end
 
-  def count_reports(report_type) do
+  def count_reports(options) do
+    author_id = Map.get(options, :author_id)
+    report_type = Map.get(options, :report_type)
+
     case report_type do
       0 ->
-        query =
-          from scouting_report in ScoutingReport,
-            where: scouting_report.report_type == 0
+        case author_id do
+          "all" ->
+            query =
+              from scouting_report in ScoutingReport,
+                where: scouting_report.report_type == 0
 
-        Repo.aggregate(query, :count, :id)
+            Repo.aggregate(query, :count, :id)
+
+          author_id ->
+            get_report_types_from_author(author_id, 0)
+        end
 
       1 ->
-        query =
-          from scouting_report in ScoutingReport,
-            where: scouting_report.report_type == 1
+        case author_id do
+          "all" ->
+            query =
+              from scouting_report in ScoutingReport,
+                where: scouting_report.report_type == 1
 
-        Repo.aggregate(query, :count, :id)
+            Repo.aggregate(query, :count, :id)
+
+          author_id ->
+            get_report_types_from_author(author_id, 0)
+        end
 
       _ ->
-        Repo.aggregate(ScoutingReport, :count, :id)
+        case author_id do
+          "all" ->
+            Repo.aggregate(ScoutingReport, :count, :id)
+
+          author_id ->
+            query =
+              from scouting_report in ScoutingReport,
+                join: u in User,
+                on: scouting_report.user_id == u.id,
+                where: scouting_report.user_id == ^author_id
+
+            Repo.aggregate(query, :count, :id)
+        end
     end
+  end
+
+  def get_report_types_from_author(author_id, report_type) do
+    author_id = String.to_integer(author_id)
+
+    query =
+      from scouting_report in ScoutingReport,
+        join: u in User,
+        on: scouting_report.user_id == u.id,
+        where:
+          scouting_report.report_type == ^report_type and scouting_report.user_id == ^author_id
+
+    Repo.aggregate(query, :count, :id)
   end
 
   @doc """

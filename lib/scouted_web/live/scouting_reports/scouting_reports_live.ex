@@ -13,6 +13,16 @@ defmodule ScoutedWeb.ScoutingReportsLive do
   end
 
   @impl true
+  def handle_event("filter", %{"author" => author_id} = params, socket) do
+    socket =
+      push_patch(socket,
+        to: Routes.live_path(socket, __MODULE__, author_id: author_id)
+      )
+
+    {:noreply, socket}
+  end
+
+  @impl true
   def handle_event("select-per-page", %{"per-page" => per_page}, socket) do
     per_page = String.to_integer(per_page)
 
@@ -24,7 +34,8 @@ defmodule ScoutedWeb.ScoutingReportsLive do
             per_page: per_page,
             sort_by: socket.assigns.options.sort_by,
             sort_order: socket.assigns.options.sort_order,
-            report_type: socket.assigns.options.report_type
+            report_type: socket.assigns.options.report_type,
+            author_id: socket.assigns.options.author_id
           )
       )
 
@@ -41,7 +52,8 @@ defmodule ScoutedWeb.ScoutingReportsLive do
             per_page: socket.assigns.options.per_page,
             sort_by: socket.assigns.options.sort_by,
             sort_order: socket.assigns.options.sort_order,
-            report_type: report_type
+            report_type: report_type,
+            author_id: socket.assigns.options.author_id
           )
       )
 
@@ -55,16 +67,19 @@ defmodule ScoutedWeb.ScoutingReportsLive do
     sort_by = (params["sort_by"] || "grade") |> String.to_atom()
     sort_order = (params["sort_order"] || "desc") |> String.to_atom()
     report_type = translate_report_type(params)
+    author_id = params["author_id"] || "all"
 
     paginate_options = %{page: page, per_page: per_page}
     sort_options = %{sort_by: sort_by, sort_order: sort_order}
     report_options = %{report_type: report_type}
+    author_options = %{author_id: author_id}
 
     scouting_reports =
       Reports.list_scouting_reports(
         paginate: paginate_options,
         sort: sort_options,
-        report_type: report_options
+        report_type: report_options,
+        author_id: author_options
       )
 
     query_options = %{
@@ -72,14 +87,15 @@ defmodule ScoutedWeb.ScoutingReportsLive do
       per_page: per_page,
       sort_by: sort_by,
       sort_order: sort_order,
-      report_type: report_type
+      report_type: report_type,
+      author_id: author_id
     }
 
     socket =
       assign(socket,
         options: query_options,
         scouting_reports: scouting_reports,
-        total_reports: Reports.count_reports(report_type)
+        total_reports: Reports.count_reports(query_options)
       )
 
     {:noreply, socket}
@@ -95,7 +111,8 @@ defmodule ScoutedWeb.ScoutingReportsLive do
           per_page: options.per_page,
           sort_by: options.sort_by,
           sort_order: options.sort_order,
-          report_type: options.report_type
+          report_type: options.report_type,
+          author_id: options.author_id
         ),
       class: class
     )
@@ -118,7 +135,8 @@ defmodule ScoutedWeb.ScoutingReportsLive do
           sort_order: toggle_sort_order(options.sort_order),
           page: 1,
           per_page: options.per_page,
-          report_type: options.report_type
+          report_type: options.report_type,
+          author_id: options.author_id
         )
     )
   end
