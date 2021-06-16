@@ -1,39 +1,40 @@
 <div class="container sm:mx-auto">
   <div class="h-screen">
     <h1 class="text-2xl my-5">All Reports</h1>
+    <div class="bg-white w-full border border-gray-200 mb-4" x-data="{selected:null}">
+      <div class="button-container p-4" x-data="{activeTab: 0}">
+        <button class="bg-transparent hover:bg-blue-600 text-blue-600 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded" phx-click="select-report-type" phx-value-report-type="all" :class="{ 'bg-blue-600 active-font' : activeTab === 0 }" @click="activeTab = 0">All</button>
 
+        <button class="bg-transparent hover:bg-blue-600 text-blue-600 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded" phx-click="select-report-type" phx-value-report-type="0" :class="{ 'bg-blue-600 active-font' : activeTab === 1 }" @click="activeTab = 1">Pitcher</button>
 
-<div class="bg-white w-full border border-gray-200 mb-4" x-data="{selected:null}">
-  <div class="button-container p-4" x-data="{activeTab: 0}">
-    <button class="bg-transparent hover:bg-blue-600 text-blue-600 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded" phx-click="select-report-type" phx-value-report-type="all" :class="{ 'bg-blue-600 active-font' : activeTab === 0 }" @click="activeTab = 0">All</button>
-
-    <button class="bg-transparent hover:bg-blue-600 text-blue-600 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded" phx-click="select-report-type" phx-value-report-type="0" :class="{ 'bg-blue-600 active-font' : activeTab === 1 }" @click="activeTab = 1">Pitcher</button>
-
-    <button class="bg-transparent hover:bg-blue-600 text-blue-600 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded" phx-click="select-report-type" phx-value-report-type="1" :class="{ 'bg-blue-600 active-font' : activeTab === 2 }" @click="activeTab = 2">Batter</button>
-  </div>
-  <div class="flex flex-col p-4 cursor-pointer">
-<div x-data="{ open: false }">
-  <div @click="open = !open" class="flex items-center justify-between p-4">
-    <div>
-      <i class="fas fa fa-filter pr-2"></i>Filters
+        <button class="bg-transparent hover:bg-blue-600 text-blue-600 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded" phx-click="select-report-type" phx-value-report-type="1" :class="{ 'bg-blue-600 active-font' : activeTab === 2 }" @click="activeTab = 2">Batter</button>
+      </div>
+      <div class="flex flex-col p-4 cursor-pointer">
+        <div x-data="{ open: false }">
+          <div @click="open = !open" class="flex items-center justify-between p-4">
+            <div>
+              <i class="fas fa fa-filter pr-2"></i>Filters
+              <%= for {key, value} <- @options do %>
+                <%= ScoutingReportView.humanize_filter_params(key, value) %>
+              <% end %>
+            </div>
+            <div>
+              <i :class="open ? 'fa fa-chevron-down' : 'fa fa-chevron-up'" class="fas"></i>
+            </div>
+          </div>
+          <hr>
+          <div x-show="open" class="p-4">
+            <form phx-change="filter">
+              <label class="font-semibold" for="author">Author</label>
+              <select class="p-1 border" name="author">
+                <option value="all">All</option>
+                <%= options_for_select(ScoutingReportView.author_type_options(), @options.author_id) %>
+              </select>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-    <div>
-      <i :class="open ? 'fa fa-chevron-down' : 'fa fa-chevron-up'" class="fas"></i>
-    </div>
-  </div>
-  <hr>
-  <div x-show="open" class="p-4">
-    <form phx-change="filter">
-      <label class="font-semibold" for="author">Author</label>
-      <select class="p-1 border" name="author">
-        <option value="all">All</option>
-        <%= options_for_select(ScoutingReportView.author_type_options(), @options.author_id) %>
-      </select>
-    </form>
-  </div>
-</div>
-</div>
-  </div>
     <div class="grid grid-cols-12 gap-6 pb-36">
       <div class="col-span-12">
         <div class="bg-white shadow-xl rounded-md">

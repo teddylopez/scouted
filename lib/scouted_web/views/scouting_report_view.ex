@@ -12,6 +12,7 @@ defmodule ScoutedWeb.ScoutingReportView do
 
   def convert_report_type(0), do: "Pitcher"
   def convert_report_type(1), do: "Position Player"
+  def convert_report_type("all"), do: "All Reports"
 
   def pitcher_report?(0), do: true
   def pitcher_report?(_), do: false
@@ -62,5 +63,34 @@ defmodule ScoutedWeb.ScoutingReportView do
         select: {u.email, u.id}
       )
     )
+  end
+
+  def humanize_filter_params(:author_id, id) do
+    case id do
+      "all" ->
+        "Written by: All"
+
+      _ ->
+        [{email}] =
+          Repo.all(
+            from(u in User,
+              where: u.id == ^id,
+              order_by: u.email,
+              select: {u.email}
+            )
+          )
+
+        "Written by: #{email}"
+    end
+  end
+
+  def humanize_filter_params(:report_type, id) do
+    type = convert_report_type(id)
+
+    "Report type: #{type}"
+  end
+
+  def humanize_filter_params(_key, _value) do
+    nil
   end
 end
