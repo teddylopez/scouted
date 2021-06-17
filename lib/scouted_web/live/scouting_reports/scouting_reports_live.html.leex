@@ -80,7 +80,7 @@
                     </thead>
                     <tbody>
                       <%= for scouting_report <- @scouting_reports do %>
-                        <tr class="bg-white cursor-pointer hover:bg-blue-50 transition duration-250 ease-in-out" data-href="/scouting_reports/<%= scouting_report.id %>">
+                        <tr class="bg-white cursor-pointer hover:bg-blue-50 transition duration-250 ease-in-out" phx-click="show-report" phx-value-scouting-report="<%= scouting_report.id %>">
                           <td class="px-6 whitespace-nowrap text-sm text-gray-900">
                             <%= format_name(scouting_report.player) %>
                           </td>

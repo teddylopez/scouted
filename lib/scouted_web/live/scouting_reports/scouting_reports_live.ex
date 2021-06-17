@@ -13,6 +13,15 @@ defmodule ScoutedWeb.ScoutingReportsLive do
   end
 
   @impl true
+  def handle_event("show-report", %{"scouting-report" => id}, socket) do
+    {
+      :noreply,
+      socket
+      |> redirect(to: Routes.scouting_report_path(socket, :show, id))
+    }
+  end
+
+  @impl true
   def handle_event("filter-author", %{"author" => author_id}, socket) do
     socket =
       push_patch(socket,
