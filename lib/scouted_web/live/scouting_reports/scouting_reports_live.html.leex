@@ -19,6 +19,12 @@
               <% end %>
             </div>
             <div>
+              <span class='font-semibold pl-4 uppercase'>
+                Filtered Results:
+              </span>
+              <span class="pr-4">
+                <%= @total_reports %>
+              </span>
               <i :class="open ? 'fa fa-chevron-down' : 'fa fa-chevron-up'" class="fas"></i>
             </div>
           </div>
