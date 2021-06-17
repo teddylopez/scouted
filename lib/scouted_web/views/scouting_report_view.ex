@@ -12,7 +12,6 @@ defmodule ScoutedWeb.ScoutingReportView do
 
   def convert_report_type(0), do: "Pitcher"
   def convert_report_type(1), do: "Position Player"
-  def convert_report_type("all"), do: "All Reports"
 
   def pitcher_report?(0), do: true
   def pitcher_report?(_), do: false
@@ -68,7 +67,7 @@ defmodule ScoutedWeb.ScoutingReportView do
   def humanize_filter_params(:author_id, id) do
     case id do
       "all" ->
-        "Written by: All"
+        raw("<span class='font-semibold pl-4 uppercase'>Written by</span>: All")
 
       _ ->
         [{email}] =
@@ -80,14 +79,16 @@ defmodule ScoutedWeb.ScoutingReportView do
             )
           )
 
-        "Written by: #{email}"
+        raw("<span class='font-semibold pl-4 uppercase'>Written by</span>: #{email}")
     end
   end
 
-  def humanize_filter_params(:report_type, id) do
-    type = convert_report_type(id)
+  def humanize_filter_params(:min_grade, min) do
+    raw("<span class='font-semibold pl-4 uppercase'>Min-Grade</span>: #{min}")
+  end
 
-    "Report type: #{type}"
+  def humanize_filter_params(:max_grade, max) do
+    raw("<span class='font-semibold pl-4 uppercase'>Max-Grade</span>: #{max}")
   end
 
   def humanize_filter_params(_key, _value) do

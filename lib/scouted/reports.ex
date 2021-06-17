@@ -38,6 +38,10 @@ defmodule Scouted.Reports do
       {:sort, %{sort_by: sort_by, sort_order: sort_order}}, query ->
         from q in query, order_by: [{^sort_order, ^sort_by}]
 
+      {:grade, %{min_grade: min_grade, max_grade: max_grade}}, query ->
+        from q in query,
+          where: q.grade >= ^min_grade and q.grade <= ^max_grade
+
       {:report_type, %{report_type: report_type}}, query ->
         case report_type do
           "all" -> query
@@ -66,6 +70,8 @@ defmodule Scouted.Reports do
   def count_reports(options) do
     author_id = Map.get(options, :author_id)
     report_type = Map.get(options, :report_type)
+    min_grade = Map.get(options, :min_grade)
+    max_grade = Map.get(options, :max_grade)
 
     case report_type do
       0 ->
@@ -73,12 +79,15 @@ defmodule Scouted.Reports do
           "all" ->
             query =
               from scouting_report in ScoutingReport,
-                where: scouting_report.report_type == 0
+                where:
+                  scouting_report.report_type == 0 and
+                    (scouting_report.grade <= ^max_grade and
+                       scouting_report.grade >= ^min_grade)
 
             Repo.aggregate(query, :count, :id)
 
           author_id ->
-            get_report_types_from_author(author_id, 0)
+            get_report_types_from_author(author_id, 0, min_grade, max_grade)
         end
 
       1 ->
@@ -86,42 +95,63 @@ defmodule Scouted.Reports do
           "all" ->
             query =
               from scouting_report in ScoutingReport,
-                where: scouting_report.report_type == 1
+                where:
+                  scouting_report.report_type == 1 and
+                    (scouting_report.grade <= ^max_grade and
+                       scouting_report.grade >= ^min_grade)
 
             Repo.aggregate(query, :count, :id)
 
           author_id ->
-            get_report_types_from_author(author_id, 0)
+            get_report_types_from_author(author_id, 1, min_grade, max_grade)
         end
 
-      _ ->
+      "all" ->
         case author_id do
           "all" ->
-            Repo.aggregate(ScoutingReport, :count, :id)
-
-          author_id ->
             query =
               from scouting_report in ScoutingReport,
-                join: u in User,
-                on: scouting_report.user_id == u.id,
-                where: scouting_report.user_id == ^author_id
+                where:
+                  scouting_report.grade <= ^max_grade and
+                    scouting_report.grade >= ^min_grade
 
             Repo.aggregate(query, :count, :id)
+
+          author_id ->
+            get_report_types_from_author(author_id, "all", min_grade, max_grade)
         end
     end
   end
 
-  def get_report_types_from_author(author_id, report_type) do
+  def get_report_types_from_author(author_id, report_type, min_grade, max_grade) do
     author_id = String.to_integer(author_id)
 
-    query =
-      from scouting_report in ScoutingReport,
-        join: u in User,
-        on: scouting_report.user_id == u.id,
-        where:
-          scouting_report.report_type == ^report_type and scouting_report.user_id == ^author_id
+    case report_type do
+      "all" ->
+        query =
+          from scouting_report in ScoutingReport,
+            join: u in User,
+            on: scouting_report.user_id == u.id,
+            where:
+              scouting_report.user_id == ^author_id and
+                scouting_report.grade >= ^min_grade and
+                scouting_report.grade <= ^max_grade
 
-    Repo.aggregate(query, :count, :id)
+        Repo.aggregate(query, :count, :id)
+
+      report_type ->
+        query =
+          from scouting_report in ScoutingReport,
+            join: u in User,
+            on: scouting_report.user_id == u.id,
+            where:
+              scouting_report.report_type == ^report_type and
+                scouting_report.user_id == ^author_id and
+                scouting_report.grade >= ^min_grade and
+                scouting_report.grade <= ^max_grade
+
+        Repo.aggregate(query, :count, :id)
+    end
   end
 
   @doc """
