@@ -35,6 +35,28 @@ defmodule ScoutedWeb.ScoutingReportView do
     |> Enum.map(&{"#{&1.last_name}, #{&1.first_name}", &1.id})
   end
 
+  def position_options do
+    [
+      {"All", "all"},
+      {"P", :pitcher}
+    ] ++
+      form_position_options()
+  end
+
+  def form_position_options do
+    [
+      {"C", :catcher},
+      {"1B", :first_base},
+      {"2B", :second_base},
+      {"3B", :third_base},
+      {"SS", :short_stop},
+      {"LF", :left_field},
+      {"CF", :center_field},
+      {"RF", :right_field},
+      {"DH", :designated_hitter}
+    ]
+  end
+
   def calculate_age(date) do
     [mm, dd, yyyy] = date |> String.split("/") |> Enum.map(&String.to_integer/1)
     now = Date.utc_today()
@@ -54,5 +76,11 @@ defmodule ScoutedWeb.ScoutingReportView do
       true -> new_date_seen.year - yyyy - 0
       false -> new_date_seen.year - yyyy - 1
     end
+  end
+
+  def translate_position(position) do
+    Atom.to_string(position)
+    |> String.replace("_", " ", global: false)
+    |> String.capitalize()
   end
 end

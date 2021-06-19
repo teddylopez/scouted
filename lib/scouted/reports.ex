@@ -42,11 +42,10 @@ defmodule Scouted.Reports do
         from q in query,
           where: q.grade >= ^min_grade and q.grade <= ^max_grade
 
-      {:report_type, %{report_type: report_type}}, query ->
-        case report_type do
+      {:position, %{position: position}}, query ->
+        case position do
           "all" -> query
-          0 -> from q in query, where: q.report_type == 0
-          1 -> from q in query, where: q.report_type == 1
+          position -> from q in query, where: q.position == ^position
           nil -> query
         end
 
@@ -61,7 +60,7 @@ defmodule Scouted.Reports do
 
       {:date, %{earliest: earliest, latest: latest}}, query ->
         {:ok, earliest_date} = NaiveDateTime.from_iso8601(earliest <> " 00:00:00")
-        {:ok, latest_date} = NaiveDateTime.from_iso8601(latest <> " 00:00:00")
+        {:ok, latest_date} = NaiveDateTime.from_iso8601(latest <> " 23:59:59")
         from q in query, where: q.updated_at >= ^earliest_date and q.updated_at <= ^latest_date
     end)
     |> Repo.all()
@@ -73,65 +72,15 @@ defmodule Scouted.Reports do
 
   def count_reports(options) do
     author_id = Map.get(options, :author_id)
-    report_type = Map.get(options, :report_type)
+    position = Map.get(options, :position)
     min_grade = Map.get(options, :min_grade)
     max_grade = Map.get(options, :max_grade)
     earliest = Map.get(options, :earliest)
     latest = Map.get(options, :latest)
     {:ok, earliest_naive} = NaiveDateTime.from_iso8601(earliest <> " 00:00:00")
-    {:ok, latest_naive} = NaiveDateTime.from_iso8601(latest <> " 00:00:00")
+    {:ok, latest_naive} = NaiveDateTime.from_iso8601(latest <> " 23:59:59")
 
-    case report_type do
-      0 ->
-        case author_id do
-          "all" ->
-            query =
-              from scouting_report in ScoutingReport,
-                where:
-                  scouting_report.report_type == 0 and
-                    (scouting_report.grade <= ^max_grade and
-                       scouting_report.grade >= ^min_grade) and
-                    (scouting_report.updated_at >= ^earliest_naive and
-                       scouting_report.updated_at <= ^latest_naive)
-
-            Repo.aggregate(query, :count, :id)
-
-          author_id ->
-            get_report_types_from_author(
-              author_id,
-              0,
-              min_grade,
-              max_grade,
-              earliest_naive,
-              latest_naive
-            )
-        end
-
-      1 ->
-        case author_id do
-          "all" ->
-            query =
-              from scouting_report in ScoutingReport,
-                where:
-                  scouting_report.report_type == 1 and
-                    (scouting_report.grade <= ^max_grade and
-                       scouting_report.grade >= ^min_grade) and
-                    (scouting_report.updated_at >= ^earliest_naive and
-                       scouting_report.updated_at <= ^latest_naive)
-
-            Repo.aggregate(query, :count, :id)
-
-          author_id ->
-            get_report_types_from_author(
-              author_id,
-              1,
-              min_grade,
-              max_grade,
-              earliest_naive,
-              latest_naive
-            )
-        end
-
+    case position do
       "all" ->
         case author_id do
           "all" ->
@@ -146,9 +95,34 @@ defmodule Scouted.Reports do
             Repo.aggregate(query, :count, :id)
 
           author_id ->
-            get_report_types_from_author(
+            get_position_types_from_author(
               author_id,
               "all",
+              min_grade,
+              max_grade,
+              earliest_naive,
+              latest_naive
+            )
+        end
+
+      position ->
+        case author_id do
+          "all" ->
+            query =
+              from scouting_report in ScoutingReport,
+                where:
+                  scouting_report.position == ^position and
+                    (scouting_report.grade <= ^max_grade and
+                       scouting_report.grade >= ^min_grade) and
+                    (scouting_report.updated_at >= ^earliest_naive and
+                       scouting_report.updated_at <= ^latest_naive)
+
+            Repo.aggregate(query, :count, :id)
+
+          author_id ->
+            get_position_types_from_author(
+              author_id,
+              position,
               min_grade,
               max_grade,
               earliest_naive,
@@ -158,10 +132,10 @@ defmodule Scouted.Reports do
     end
   end
 
-  def get_report_types_from_author(author_id, report_type, min_grade, max_grade, earliest, latest) do
+  def get_position_types_from_author(author_id, position, min_grade, max_grade, earliest, latest) do
     author_id = String.to_integer(author_id)
 
-    case report_type do
+    case position do
       "all" ->
         query =
           from scouting_report in ScoutingReport,
@@ -176,13 +150,13 @@ defmodule Scouted.Reports do
 
         Repo.aggregate(query, :count, :id)
 
-      report_type ->
+      position ->
         query =
           from scouting_report in ScoutingReport,
             join: u in User,
             on: scouting_report.user_id == u.id,
             where:
-              scouting_report.report_type == ^report_type and
+              scouting_report.position == ^position and
                 scouting_report.user_id == ^author_id and
                 scouting_report.grade >= ^min_grade and
                 scouting_report.grade <= ^max_grade and

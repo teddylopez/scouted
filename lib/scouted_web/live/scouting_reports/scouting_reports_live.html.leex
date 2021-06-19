@@ -23,10 +23,10 @@
         </div>
         <hr>
         <div class="flex md:flex-row flex-col p-4">
-          <form phx-change="filter-report-type" class="pt-4">
-            <label class="font-medium uppercase pr-2" for="report-type">Report Type</label>
-            <select class="p-1 border cursor-pointer" name="report-type">
-              <%= options_for_select(report_type_options(), @options.report_type) %>
+          <form phx-change="filter-position" class="pt-4">
+            <label class="font-medium uppercase pr-2" for="position">Position</label>
+            <select class="p-1 border cursor-pointer" name="position">
+              <%= options_for_select(ScoutingReportView.position_options(), @options.position) %>
             </select>
           </form>
           <form phx-change="filter-author" class="pt-4 md:pl-6">

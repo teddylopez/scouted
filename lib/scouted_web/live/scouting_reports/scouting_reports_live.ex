@@ -26,7 +26,7 @@ defmodule ScoutedWeb.ScoutingReportsLive do
   end
 
   @impl true
-  def handle_event("filter-report-type", %{"report-type" => report_type}, socket) do
+  def handle_event("filter-position", %{"position" => position}, socket) do
     socket =
       push_patch(socket,
         to:
@@ -35,7 +35,7 @@ defmodule ScoutedWeb.ScoutingReportsLive do
             per_page: socket.assigns.options.per_page,
             sort_by: socket.assigns.options.sort_by,
             sort_order: socket.assigns.options.sort_order,
-            report_type: report_type,
+            position: position,
             author_id: socket.assigns.options.author_id,
             min_grade: socket.assigns.options.min_grade,
             max_grade: socket.assigns.options.max_grade,
@@ -57,7 +57,7 @@ defmodule ScoutedWeb.ScoutingReportsLive do
             per_page: socket.assigns.options.per_page,
             sort_by: socket.assigns.options.sort_by,
             sort_order: socket.assigns.options.sort_order,
-            report_type: socket.assigns.options.report_type,
+            position: socket.assigns.options.position,
             author_id: author_id,
             min_grade: socket.assigns.options.min_grade,
             max_grade: socket.assigns.options.max_grade,
@@ -79,7 +79,7 @@ defmodule ScoutedWeb.ScoutingReportsLive do
             per_page: socket.assigns.options.per_page,
             sort_by: socket.assigns.options.sort_by,
             sort_order: socket.assigns.options.sort_order,
-            report_type: socket.assigns.options.report_type,
+            position: socket.assigns.options.position,
             author_id: socket.assigns.options.author_id,
             min_grade: min_grade,
             max_grade: socket.assigns.options.max_grade,
@@ -101,7 +101,7 @@ defmodule ScoutedWeb.ScoutingReportsLive do
             per_page: socket.assigns.options.per_page,
             sort_by: socket.assigns.options.sort_by,
             sort_order: socket.assigns.options.sort_order,
-            report_type: socket.assigns.options.report_type,
+            position: socket.assigns.options.position,
             author_id: socket.assigns.options.author_id,
             min_grade: socket.assigns.options.min_grade,
             max_grade: max_grade,
@@ -125,7 +125,7 @@ defmodule ScoutedWeb.ScoutingReportsLive do
             per_page: per_page,
             sort_by: socket.assigns.options.sort_by,
             sort_order: socket.assigns.options.sort_order,
-            report_type: socket.assigns.options.report_type,
+            position: socket.assigns.options.position,
             author_id: socket.assigns.options.author_id,
             min_grade: socket.assigns.options.min_grade,
             max_grade: socket.assigns.options.max_grade,
@@ -147,7 +147,7 @@ defmodule ScoutedWeb.ScoutingReportsLive do
             per_page: socket.assigns.options.per_page,
             sort_by: socket.assigns.options.sort_by,
             sort_order: socket.assigns.options.sort_order,
-            report_type: socket.assigns.options.report_type,
+            position: socket.assigns.options.position,
             author_id: socket.assigns.options.author_id,
             min_grade: socket.assigns.options.min_grade,
             max_grade: socket.assigns.options.max_grade,
@@ -169,7 +169,7 @@ defmodule ScoutedWeb.ScoutingReportsLive do
             per_page: socket.assigns.options.per_page,
             sort_by: socket.assigns.options.sort_by,
             sort_order: socket.assigns.options.sort_order,
-            report_type: socket.assigns.options.report_type,
+            position: socket.assigns.options.position,
             author_id: socket.assigns.options.author_id,
             min_grade: socket.assigns.options.min_grade,
             max_grade: socket.assigns.options.max_grade,
@@ -187,7 +187,7 @@ defmodule ScoutedWeb.ScoutingReportsLive do
     per_page = String.to_integer(params["per_page"] || "10")
     sort_by = (params["sort_by"] || "updated_at") |> String.to_atom()
     sort_order = (params["sort_order"] || "desc") |> String.to_atom()
-    report_type = translate_report_type(params)
+    position = params["position"] || "all"
     author_id = params["author_id"] || "all"
     min_grade = params["min_grade"] || "20"
     max_grade = params["max_grade"] || "80"
@@ -196,7 +196,7 @@ defmodule ScoutedWeb.ScoutingReportsLive do
 
     paginate_options = %{page: page, per_page: per_page}
     sort_options = %{sort_by: sort_by, sort_order: sort_order}
-    report_options = %{report_type: report_type}
+    position_options = %{position: position}
     author_options = %{author_id: author_id}
     grade_options = %{min_grade: min_grade, max_grade: max_grade}
     date_options = %{earliest: earliest, latest: latest}
@@ -205,7 +205,7 @@ defmodule ScoutedWeb.ScoutingReportsLive do
       Reports.list_scouting_reports(
         paginate: paginate_options,
         sort: sort_options,
-        report_type: report_options,
+        position: position_options,
         author_id: author_options,
         grade: grade_options,
         date: date_options
@@ -216,7 +216,7 @@ defmodule ScoutedWeb.ScoutingReportsLive do
       per_page: per_page,
       sort_by: sort_by,
       sort_order: sort_order,
-      report_type: report_type,
+      position: position,
       author_id: author_id,
       min_grade: min_grade,
       max_grade: max_grade,
@@ -244,7 +244,7 @@ defmodule ScoutedWeb.ScoutingReportsLive do
           per_page: options.per_page,
           sort_by: options.sort_by,
           sort_order: options.sort_order,
-          report_type: options.report_type,
+          position: options.position,
           author_id: options.author_id,
           min_grade: options.min_grade,
           max_grade: options.max_grade,
@@ -272,7 +272,7 @@ defmodule ScoutedWeb.ScoutingReportsLive do
           sort_order: toggle_sort_order(options.sort_order),
           page: 1,
           per_page: options.per_page,
-          report_type: options.report_type,
+          position: options.position,
           author_id: options.author_id,
           min_grade: options.min_grade,
           max_grade: options.max_grade,
@@ -280,23 +280,6 @@ defmodule ScoutedWeb.ScoutingReportsLive do
           latest: options.latest
         )
     )
-  end
-
-  defp translate_report_type(%{"report_type" => report_type}) do
-    case report_type do
-      "0" ->
-        0
-
-      "1" ->
-        1
-
-      _ ->
-        "all"
-    end
-  end
-
-  defp translate_report_type(%{} = _params) do
-    "all"
   end
 
   defp format_name(person) do
@@ -358,10 +341,6 @@ defmodule ScoutedWeb.ScoutingReportsLive do
 
   def grade_scale do
     [20, 30, 40, 50, 60, 70, 80]
-  end
-
-  def report_type_options do
-    [{"All", "all"}, {"Pitcher", 0}, {"Batter", 1}]
   end
 
   def author_type_options do

@@ -18,7 +18,7 @@
         <h5 class="mb-4"><span class="font-bold">Age:</span> <%= calculate_age(@changeset.player.info["dob"], @changeset.details.date_seen) %></h5>
 
         <%= if position_report?(@changeset.report_type) do %>
-          <h5 class="mb-4"><span class="font-bold">Position:</span> <%= @changeset.details.position %></h5>
+          <h5 class="mb-4"><span class="font-bold">Position:</span> <%= ScoutedWeb.ScoutingReportView.translate_position(@changeset.position) %></h5>
         <% end %>
         <%= if pitcher_report?(@changeset.report_type) do %>
           <h5 class="mb-4"><span class="font-bold">Pitcher Role:</span> <%= @changeset.details.pitcher_role %></h5>

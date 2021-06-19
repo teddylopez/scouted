@@ -7,7 +7,6 @@ defmodule Scouted.Details do
     field :date_seen
     field :report_type
     field :summary
-    field :position
     field :pitcher_role
     field :time_to_first
     field :fastball_min_velo
@@ -31,7 +30,6 @@ defmodule Scouted.Details do
       :date_seen,
       :report_type,
       :summary,
-      :position,
       :pitcher_role,
       :time_to_first,
       :fastball_min_velo,
@@ -51,25 +49,9 @@ defmodule Scouted.Details do
     ])
     |> validate_required([:summary])
     |> validate_length(:summary, min: 50)
-    |> validate_position()
     |> validate_pitcher_role()
     |> validate_time_to_first()
     |> validate_pitches()
-  end
-
-  defp validate_position(changeset) do
-    report_type = get_field(changeset, :report_type)
-
-    case report_type do
-      "1" ->
-        case get_field(changeset, :position) == nil do
-          true -> add_error(changeset, :position, "can't be blank")
-          false -> changeset
-        end
-
-      _ ->
-        changeset
-    end
   end
 
   defp validate_pitcher_role(changeset) do
