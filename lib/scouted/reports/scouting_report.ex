@@ -11,6 +11,20 @@ defmodule Scouted.Reports.ScoutingReport do
     belongs_to :user, Scouted.Accounts.User
     embeds_one :details, Details, on_replace: :update
 
+    field :position, Ecto.Enum,
+      values: [
+        :pitcher,
+        :catcher,
+        :first_base,
+        :second_base,
+        :third_base,
+        :short_stop,
+        :left_field,
+        :center_field,
+        :right_field,
+        :designated_hitter
+      ]
+
     timestamps()
   end
 
