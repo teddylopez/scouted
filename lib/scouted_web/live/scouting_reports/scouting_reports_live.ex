@@ -332,7 +332,6 @@ defmodule ScoutedWeb.ScoutingReportsLive do
   defp highlight_grade(grade) when grade <= 49, do: "bg-green-500"
   defp highlight_grade(grade) when grade >= 50 and grade <= 69, do: "bg-yellow-400"
   defp highlight_grade(grade) when grade >= 70, do: "bg-red-500"
-  defp highlight_grade(_grade), do: "bg-purple-400"
 
   defp toggle_sort_order(:asc), do: :desc
   defp toggle_sort_order(:desc), do: :asc
