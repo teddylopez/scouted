@@ -110,7 +110,7 @@
                             <%= format_name(scouting_report.player) %>
                           </td>
                           <td class="px-6 py-2 whitespace-nowrap text-sm text-gray-900 text-center">
-                            <%= ScoutingReportView.calculate_age(scouting_report.player.info["dob"]) %>
+                            <%= ScoutingReportView.calculate_age(scouting_report.player.info["dob"], scouting_report.details.date_seen) %>
                           </td>
                           <td class="px-6 py-2 whitespace-nowrap text-sm text-gray-900 text-center">
                             <%= translate_position(scouting_report.position) %>
