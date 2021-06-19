@@ -2,7 +2,7 @@
   <div x-data="datepicker()" x-init="[initDate(), getNoOfDays()]" x-cloak>
     <div class="mx-auto">
       <div class="mb-5 w-64">
-        <label for="datepicker" class="font-bold mb-1 block">Date Seen</label>
+        <label for="datepicker" class="font-bold mb-1 block uppercase">Date Seen</label>
         <div class="relative">
           <%= hidden_input @form, :date_seen, ":value": "datepickerValue" %>
           <input type="text" x-on:click="showDatepicker = !showDatepicker" x-model="datepickerValue" x-on:keydown.escape="showDatepicker = false" class="cursor-pointer border w-full pl-4 pr-10 py-3 leading-none rounded-lg shadow-sm focus:outline-none font-medium focus:ring focus:ring-blue-600 focus:ring-opacity-50" placeholder="Select date" readonly />

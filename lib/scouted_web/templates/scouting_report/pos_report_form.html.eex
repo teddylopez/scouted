@@ -4,14 +4,14 @@
     <%= hidden_input f, :user_id, value: @author.id %>
     <%= hidden_input f, :report_type, value: 1 %>
 
-    <div class="flex flex-col md:flex-row justify-between pb-4">
+    <div class="flex flex-col md:flex-row pb-4">
       <div class="field flex-1 mb-2">
-          <%= label f, :player_id, class: "font-semibold control-label" %>
+          <%= label f, :player_id, class: "font-semibold control-label pr-2 uppercase" %>
           <%= select f, :player_id, Scouted.Repo.all(Scouted.Player) |> Enum.map(&{&1.last_name, &1.id}), [class: "p-1 border", prompt: ""] %>
           <%= error_tag f, :player_id %>
       </div>
       <div class="field flex-1 mb-2">
-        <%= label f, :grade, class: "font-semibold control-label" %>
+        <%= label f, :grade, class: "font-semibold control-label pr-2 uppercase" %>
         <%= select f, :grade, grade_scale, [class: "p-1 border", prompt: ""] %>
         <%= error_tag f, :grade %>
       </div>
@@ -19,12 +19,12 @@
       <%= inputs_for f, :details, fn fp -> %>
         <%= hidden_input fp, :report_type, value: 1 %>
         <div class="field flex-1 mb-2">
-          <%= label fp, :position, class: "font-semibold control-label" %>
+          <%= label fp, :position, class: "font-semibold control-label pr-2 uppercase" %>
           <%= select fp, :position, ["C", "1B", "2B", "SS", "3B", "LF", "CF", "RF", "DH"], [class: "p-1 border", prompt: ""] %>
           <%= error_tag fp, :position %>
         </div>
         <div class="field flex-1 mb-2">
-          <%= label fp, :time_to_first, class: "font-semibold control-label" %>
+          <%= label fp, :time_to_first, class: "font-semibold control-label pr-2 uppercase" %>
           <%= number_input fp, :time_to_first, class: "p-1 border w-12" %>
           <%= error_tag fp, :time_to_first %>
         </div>
@@ -41,7 +41,7 @@
 
     <div class="form-group pb-4">
       <%= inputs_for f, :details, fn fp -> %>
-        <%= label fp, :summary, class: "font-semibold control-label" %>
+        <%= label fp, :summary, class: "font-semibold control-label uppercase" %>
         <%= textarea fp, :summary, [class: "p-2 border w-full h-60", placeholder: "Written report..."] %>
         <%= error_tag fp, :summary %>
       <% end %>

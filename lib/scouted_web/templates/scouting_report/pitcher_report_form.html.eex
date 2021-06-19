@@ -4,20 +4,20 @@
     <%= hidden_input f, :user_id, value: @author.id %>
     <%= hidden_input f, :report_type, value: 0 %>
 
-    <div class="flex flex-col md:flex-row justify-between pb-6">
+    <div class="flex flex-col md:flex-row pb-6">
       <div class="field flex-1 mb-2">
-          <%= label f, :player_id, class: "font-semibold control-label" %>
+          <%= label f, :player_id, class: "font-semibold uppercase pr-2 control-label" %>
           <%= select f, :player_id, Scouted.Repo.all(Scouted.Player) |> Enum.map(&{&1.last_name, &1.id}), [class: "p-1 border", prompt: ""] %>
           <%= error_tag f, :player_id %>
       </div>
       <div class="field flex-1 mb-2">
-          <%= label f, :grade, class: "font-semibold control-label" %>
+          <%= label f, :grade, class: "font-semibold uppercase pr-2 control-label" %>
           <%= select f, :grade, grade_scale, [class: "p-1 border", prompt: ""] %>
           <%= error_tag f, :grade %>
       </div>
       <div class="field flex-1 mb-2">
         <%= inputs_for f, :details, fn fp -> %>
-          <%= label fp, :pitcher_role, class: "font-semibold control-label" %>
+          <%= label fp, :pitcher_role, class: "font-semibold uppercase pr-2 control-label" %>
           <%= select fp, :pitcher_role, ["Starter", "Bulk", "Reliever"], [class: "p-1 border", prompt: ""] %>
           <%= error_tag fp, :pitcher_role %>
         <% end %>
@@ -32,7 +32,7 @@
 
     <div class="form-group">
       <%= inputs_for f, :details, fn fp -> %>
-        <%= label fp, :summary, class: "font-semibold control-label" %> <br>
+        <%= label fp, :summary, class: "font-semibold control-label uppercase" %> <br>
         <%= textarea fp, :summary, [class: "p-2 border w-full h-60", placeholder: "Written report...", phx_debounce: "blur"] %>
         <%= error_tag fp, :summary %>
       <% end %>
@@ -51,7 +51,7 @@
               }"
               :class="{ 'bg-red-100' : min != '' || max != '' }">
               <div class="form-group py-5">
-                <span class="mr-2 font-semibold">Fastball:</span>
+                <span class="mr-2 font-semibold uppercase">Fastball:</span>
                 <%= number_input fp, :fastball_min_velo,
                     [class: "border grouped-inputs w-16 pl-1", placeholder: "Min", "x-model": "min"] %>
                 <%= number_input fp, :fastball_max_velo,
@@ -67,7 +67,7 @@
               }"
               :class="{ 'bg-yellow-100' : min != '' || max != '' }">
               <div class="form-group py-5">
-                <span class="mr-2 font-semibold">Sinker:</span>
+                <span class="mr-2 font-semibold uppercase">Sinker:</span>
                 <%= number_input fp, :sinker_min_velo, [class: "border grouped-inputs w-16 pl-1", placeholder: "Min", "x-model": "min"] %>
                 <%= number_input fp, :sinker_max_velo, [class: "border grouped-inputs w-16 pl-1", placeholder: "Max", "x-model": "max"] %>
                 <%= error_tag fp, :sinker_min_velo %>
@@ -83,7 +83,7 @@
               }"
               :class="{ 'bg-blue-100' : min != '' || max != '' }">
               <div class="form-group py-5">
-                <span class="mr-2 font-semibold">Slider:</span>
+                <span class="mr-2 font-semibold uppercase">Slider:</span>
                 <%= number_input fp, :slider_min_velo, [class: "border grouped-inputs w-16 pl-1", placeholder: "Min", "x-model": "min"] %>
                 <%= number_input fp, :slider_max_velo, [class: "border grouped-inputs w-16 pl-1", placeholder: "Max", "x-model": "max"] %>
                 <%= error_tag fp, :slider_min_velo %>
@@ -97,7 +97,7 @@
               }"
               :class="{ 'bg-green-100' : min != '' || max != '' }">
               <div class="form-group py-5">
-                <span class="mr-2 font-semibold">Curveball:</span>
+                <span class="mr-2 font-semibold uppercase">Curveball:</span>
                 <%= number_input fp, :curveball_min_velo, [class: "border grouped-inputs w-16 pl-1", placeholder: "Min", "x-model": "min"] %>
                 <%= number_input fp, :curveball_max_velo, [class: "border grouped-inputs w-16 pl-1", placeholder: "Max", "x-model": "max"] %>
                 <%= error_tag fp, :curveball_min_velo %>
@@ -113,7 +113,7 @@
               }"
               :class="{ 'bg-purple-100' : min != '' || max != '' }">
               <div class="form-group py-5">
-               <span class="mr-2 font-semibold">Changeup:</span>
+               <span class="mr-2 font-semibold uppercase">Changeup:</span>
                <%= number_input fp, :changeup_min_velo, [class: "border grouped-inputs w-16 pl-1", placeholder: "Min", "x-model": "min"] %>
                <%= number_input fp, :changeup_max_velo, [class: "border grouped-inputs w-16 pl-1", placeholder: "Max", "x-model": "max"] %>
                <%= error_tag fp, :changeup_min_velo %>
@@ -128,12 +128,12 @@
               }"
               :class="{ 'bg-gray-100' : name != '' || min != '' || max != '' }">
               <div class="form-group">
-                <span class="mr-2 font-semibold">Other:</span>
+                <span class="mr-2 font-semibold uppercase">Other:</span>
                 <%= text_input fp, :other_name, [class: "border grouped-inputs pl-1 w-32", placeholder: "Pitch name...", "x-model": "name"] %>
                 <%= error_tag fp, :other_name %>
               </div>
               <div class="form-group">
-                <span class="mr-2 font-semibold">Velocity:</span>
+                <span class="mr-2 font-semibold uppercase">Velocity:</span>
                 <%= number_input fp, :other_min_velo, [class: "border grouped-inputs w-16 pl-1", placeholder: "Min", "x-model": "min"] %>
                 <%= number_input fp, :other_max_velo, [class: "border grouped-inputs w-16 pl-1 mt-1", placeholder: "Max", "x-model": "max"] %>
                 <%= error_tag fp, :other_min_velo %>
