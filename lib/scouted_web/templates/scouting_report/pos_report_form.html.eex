@@ -6,13 +6,13 @@
 
     <div class="flex flex-col md:flex-row pb-4">
       <div class="field flex-1 mb-2">
-          <%= label f, :player_id, class: "font-semibold control-label pr-2 uppercase" %>
-          <%= select f, :player_id, player_options, [class: "p-1 border", prompt: ""] %>
-          <%= error_tag f, :player_id %>
+        <%= label f, :player_id, class: "font-semibold control-label pr-2 uppercase" %>
+        <%= select f, :player_id, player_options, [class: "p-1 border cursor-pointer", prompt: ""] %>
+        <%= error_tag f, :player_id %>
       </div>
       <div class="field flex-1 mb-2">
         <%= label f, :grade, class: "font-semibold control-label pr-2 uppercase" %>
-        <%= select f, :grade, grade_scale, [class: "p-1 border", prompt: ""] %>
+        <%= select f, :grade, grade_scale, [class: "p-1 border cursor-pointer", prompt: ""] %>
         <%= error_tag f, :grade %>
       </div>
 
@@ -20,7 +20,7 @@
         <%= hidden_input fp, :report_type, value: 1 %>
         <div class="field flex-1 mb-2">
           <%= label fp, :position, class: "font-semibold control-label pr-2 uppercase" %>
-          <%= select fp, :position, ["C", "1B", "2B", "SS", "3B", "LF", "CF", "RF", "DH"], [class: "p-1 border", prompt: ""] %>
+          <%= select fp, :position, ["C", "1B", "2B", "SS", "3B", "LF", "CF", "RF", "DH"], [class: "p-1 border cursor-pointer", prompt: ""] %>
           <%= error_tag fp, :position %>
         </div>
         <div class="field flex-1 mb-2">

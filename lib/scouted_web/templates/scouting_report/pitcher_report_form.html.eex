@@ -6,19 +6,19 @@
 
     <div class="flex flex-col md:flex-row pb-6">
       <div class="field flex-1 mb-2">
-          <%= label f, :player_id, class: "font-semibold uppercase pr-2 control-label" %>
-          <%= select f, :player_id, player_options, [class: "p-1 border", prompt: ""] %>
-          <%= error_tag f, :player_id %>
+        <%= label f, :player_id, class: "font-semibold uppercase pr-2 control-label" %>
+        <%= select f, :player_id, player_options, [class: "p-1 border cursor-pointer", prompt: ""] %>
+        <%= error_tag f, :player_id %>
       </div>
       <div class="field flex-1 mb-2">
-          <%= label f, :grade, class: "font-semibold uppercase pr-2 control-label" %>
-          <%= select f, :grade, grade_scale, [class: "p-1 border", prompt: ""] %>
-          <%= error_tag f, :grade %>
+        <%= label f, :grade, class: "font-semibold uppercase pr-2 control-label" %>
+        <%= select f, :grade, grade_scale, [class: "p-1 border cursor-pointer", prompt: ""] %>
+        <%= error_tag f, :grade %>
       </div>
       <div class="field flex-1 mb-2">
         <%= inputs_for f, :details, fn fp -> %>
           <%= label fp, :pitcher_role, class: "font-semibold uppercase pr-2 control-label" %>
-          <%= select fp, :pitcher_role, ["Starter", "Bulk", "Reliever"], [class: "p-1 border", prompt: ""] %>
+          <%= select fp, :pitcher_role, ["Starter", "Bulk", "Reliever"], [class: "p-1 border cursor-pointer", prompt: ""] %>
           <%= error_tag fp, :pitcher_role %>
         <% end %>
       </div>
