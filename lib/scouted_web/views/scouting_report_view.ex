@@ -28,7 +28,12 @@ defmodule ScoutedWeb.ScoutingReportView do
   end
 
   def player_options do
-    Scouted.Repo.all(Scouted.Player) |> Enum.map(&{"#{&1.last_name}, #{&1.first_name}", &1.id})
+    players =
+      from(player in Scouted.Player,
+        order_by: [asc: :last_name]
+      )
+      |> Repo.all()
+      |> Enum.map(&{"#{&1.last_name}, #{&1.first_name}", &1.id})
   end
 
   def calculate_age(date) do
@@ -44,9 +49,7 @@ defmodule ScoutedWeb.ScoutingReportView do
   def calculate_age(birthday, date_seen) do
     [mm, dd, yyyy] = date_seen |> String.split("/") |> Enum.map(&String.to_integer/1)
     {:ok, new_date_seen} = Date.new(yyyy, mm, dd)
-
     [mm, dd, yyyy] = birthday |> String.split("/") |> Enum.map(&String.to_integer/1)
-    {:ok, new_birthday} = Date.new(yyyy, mm, dd)
 
     case new_date_seen.month > mm || (new_date_seen.month == mm && new_date_seen.day >= dd) do
       true -> new_date_seen.year - yyyy - 0
