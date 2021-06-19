@@ -354,4 +354,19 @@ defmodule ScoutedWeb.ScoutingReportsLive do
       )
     )
   end
+
+  def translate_position(position) do
+    case position do
+      :pitcher -> "P"
+      :catcher -> "C"
+      :first_base -> "1B"
+      :second_base -> "2B"
+      :third_base -> "3B"
+      :short_stop -> "SS"
+      :left_field -> "LF"
+      :center_field -> "CF"
+      :right_field -> "RF"
+      :designated_hitter -> "DH"
+    end
+  end
 end
