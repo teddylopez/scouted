@@ -27,6 +27,10 @@ defmodule ScoutedWeb.ScoutingReportView do
     [20, 30, 40, 50, 60, 70, 80]
   end
 
+  def player_options do
+    Scouted.Repo.all(Scouted.Player) |> Enum.map(&{"#{&1.last_name}, #{&1.first_name}", &1.id})
+  end
+
   def calculate_age(date) do
     [mm, dd, yyyy] = date |> String.split("/") |> Enum.map(&String.to_integer/1)
     now = Date.utc_today()
@@ -48,36 +52,5 @@ defmodule ScoutedWeb.ScoutingReportView do
       true -> new_date_seen.year - yyyy - 0
       false -> new_date_seen.year - yyyy - 1
     end
-  end
-
-  def humanize_filter_params(:author_id, id) do
-    case id do
-      "all" ->
-        raw("<span class='font-semibold pl-4 uppercase'>Written by</span>: All")
-
-      _ ->
-        [{email}] =
-          Repo.all(
-            from(u in User,
-              where: u.id == ^id,
-              order_by: u.email,
-              select: {u.email}
-            )
-          )
-
-        raw("<span class='font-semibold pl-4 uppercase'>Written by</span>: #{email}")
-    end
-  end
-
-  def humanize_filter_params(:min_grade, min) do
-    raw("<span class='font-semibold pl-4 uppercase'>Min-Grade</span>: #{min}")
-  end
-
-  def humanize_filter_params(:max_grade, max) do
-    raw("<span class='font-semibold pl-4 uppercase'>Max-Grade</span>: #{max}")
-  end
-
-  def humanize_filter_params(_key, _value) do
-    nil
   end
 end

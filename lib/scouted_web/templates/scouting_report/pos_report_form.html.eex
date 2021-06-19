@@ -7,7 +7,7 @@
     <div class="flex flex-col md:flex-row pb-4">
       <div class="field flex-1 mb-2">
           <%= label f, :player_id, class: "font-semibold control-label pr-2 uppercase" %>
-          <%= select f, :player_id, Scouted.Repo.all(Scouted.Player) |> Enum.map(&{&1.last_name, &1.id}), [class: "p-1 border", prompt: ""] %>
+          <%= select f, :player_id, player_options, [class: "p-1 border", prompt: ""] %>
           <%= error_tag f, :player_id %>
       </div>
       <div class="field flex-1 mb-2">
