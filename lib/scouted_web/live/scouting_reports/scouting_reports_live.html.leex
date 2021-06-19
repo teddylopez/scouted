@@ -8,7 +8,7 @@
             <span><i class="fas fa fa-filter pr-2"></i><span class="uppercase font-semibold">Filters</span></span>
             <span>
               <div class="p-4">
-                <%= live_patch "⟲", class: "bg-transparent text-red-600 font-semibold text-xl", to: "/" %>
+                <%= live_patch raw("<i class='fa fa-refresh' aria-hidden='true'></i>"), class: "text-red-600", to: "/" %>
               </div>
             </span>
           </div>
