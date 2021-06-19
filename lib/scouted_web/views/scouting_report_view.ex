@@ -1,8 +1,6 @@
 defmodule ScoutedWeb.ScoutingReportView do
   use ScoutedWeb, :view
 
-  alias Scouted.Accounts.User
-  alias Scouted.Reports.ScoutingReport
   alias Scouted.Repo
   import Ecto.Query, only: [from: 2]
 
@@ -26,7 +24,7 @@ defmodule ScoutedWeb.ScoutingReportView do
   end
 
   def grade_scale do
-    [20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80]
+    [20, 30, 40, 50, 60, 70, 80]
   end
 
   def calculate_age(date) do
@@ -50,18 +48,6 @@ defmodule ScoutedWeb.ScoutingReportView do
       true -> new_date_seen.year - yyyy - 0
       false -> new_date_seen.year - yyyy - 1
     end
-  end
-
-  def author_type_options do
-    Repo.all(
-      from(sr in ScoutingReport,
-        join: u in User,
-        on: sr.user_id == u.id,
-        group_by: u.id,
-        order_by: u.email,
-        select: {u.email, u.id}
-      )
-    )
   end
 
   def humanize_filter_params(:author_id, id) do
