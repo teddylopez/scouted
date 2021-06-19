@@ -54,7 +54,7 @@
             <form phx-change="filter-earliest">
               <label class="font-medium uppercase pr-2" for="earliest">Earliest Date</label>
               <div class="border rounded-md px-3 py-2 w-60">
-                <input type="date" name="earliest" placeholder="<%= @options.earliest %>" value="<%= @options.earliest %>" class="w-full cursor-pointer">
+                <input type="date" name="earliest" placeholder="<%= @options.earliest %>" value="<%= @options.earliest %>" min="<%= earliest_date() %>" max="<%= todays_date() %>" class="w-full cursor-pointer">
               </div>
             </form>
           </div>
@@ -62,7 +62,7 @@
             <form phx-change="filter-latest">
               <label class="font-medium uppercase pr-2" for="latest">Latest Date</label>
               <div class="border rounded-md px-3 py-2 w-60">
-                <input type="date" name="latest" placeholder="<%= @options.latest %>" value="<%= @options.latest %>" class="w-full cursor-pointer">
+                <input type="date" name="latest" placeholder="<%= @options.latest %>" value="<%= @options.latest %>" min="<%= earliest_date() %>" max="<%= todays_date() %>" class="w-full cursor-pointer">
               </div>
             </form>
           </div>
