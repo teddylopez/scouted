@@ -38,13 +38,13 @@
       <% end %>
     </div>
 
-    <div class="my-4">
+    <div class="my-4 ">
       <%= inputs_for f, :details, fn fp -> %>
         <%= hidden_input fp, :report_type, value: 0 %>
-        <h4 class="text-xl">Pitch Velocities</h4>
+        <h4 class="text-xl pb-4">Pitch Velocities</h4>
         <div class="grid sm:grid-cols-3">
           <div class="col">
-            <div class="border transition duration-250 ease-in-out px-2 mx-2 mx-2 mb-2"
+            <div class="border border-red-300 rounded transition duration-250 ease-in-out px-2 mx-2 mx-2 mb-2"
               x-data="{
                min: '<%= if @scouting_report != nil, do: @scouting_report.details.fastball_min_velo, else: '' %>',
                max: '<%= if @scouting_report != nil, do: @scouting_report.details.fastball_max_velo, else: '' %>'
@@ -60,7 +60,7 @@
                 <%= error_tag fp, :fastball_max_velo %>
               </div>
             </div>
-            <div class="border transition duration-250 ease-in-out px-2 mx-2 mb-2"
+            <div class="border border-yellow-300 rounded transition duration-250 ease-in-out px-2 mx-2 mb-2"
               x-data="{
                min: '<%= if @scouting_report != nil, do: @scouting_report.details.sinker_min_velo, else: '' %>',
                max: '<%= if @scouting_report != nil, do: @scouting_report.details.sinker_max_velo, else: '' %>'
@@ -76,7 +76,7 @@
             </div>
           </div>
           <div class="col">
-            <div class="border transition duration-250 ease-in-out px-2 mx-2 mb-2"
+            <div class="border border-blue-300 rounded transition duration-250 ease-in-out px-2 mx-2 mb-2"
               x-data="{
                min: '<%= if @scouting_report != nil, do: @scouting_report.details.slider_min_velo, else: '' %>',
                max: '<%= if @scouting_report != nil, do: @scouting_report.details.slider_max_velo, else: '' %>'
@@ -90,7 +90,7 @@
                 <%= error_tag fp, :slider_max_velo %>
               </div>
             </div>
-            <div class="border transition duration-250 ease-in-out px-2 mx-2 mb-2"
+            <div class="border border-green-300 rounded transition duration-250 ease-in-out px-2 mx-2 mb-2"
               x-data="{
                min: '<%= if @scouting_report != nil, do: @scouting_report.details.curveball_min_velo, else: '' %>',
                max: '<%= if @scouting_report != nil, do: @scouting_report.details.curveball_max_velo, else: '' %>'
@@ -106,7 +106,7 @@
             </div>
           </div>
           <div class="col">
-            <div class="border transition duration-250 ease-in-out px-2 mx-2 mb-2"
+            <div class="border border-purple-300 rounded transition duration-250 ease-in-out px-2 mx-2 mb-2"
               x-data="{
                min: '<%= if @scouting_report != nil, do: @scouting_report.details.changeup_min_velo, else: '' %>',
                max: '<%= if @scouting_report != nil, do: @scouting_report.details.changeup_max_velo, else: '' %>'
@@ -120,7 +120,7 @@
                <%= error_tag fp, :changeup_max_velo %>
               </div>
             </div>
-            <div class="border flex flex-col transition duration-250 ease-in-out px-2 mx-2 flex py-1 mb-2"
+            <div class="border border-gray-300 rounded flex flex-col transition duration-250 ease-in-out px-2 mx-2 flex py-1 mb-2"
               x-data="{
               name: '<%= if @scouting_report != nil, do: @scouting_report.details.other_name, else: '' %>',
               min: '<%= if @scouting_report != nil, do: @scouting_report.details.other_min_velo, else: '' %>',
