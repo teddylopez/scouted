@@ -28,12 +28,11 @@ defmodule ScoutedWeb.ScoutingReportView do
   end
 
   def player_options do
-    players =
-      from(player in Scouted.Player,
-        order_by: [asc: :last_name]
-      )
-      |> Repo.all()
-      |> Enum.map(&{"#{&1.last_name}, #{&1.first_name}", &1.id})
+    from(player in Scouted.Player,
+      order_by: [asc: :last_name]
+    )
+    |> Repo.all()
+    |> Enum.map(&{"#{&1.last_name}, #{&1.first_name}", &1.id})
   end
 
   def calculate_age(date) do

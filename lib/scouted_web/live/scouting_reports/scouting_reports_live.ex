@@ -363,8 +363,8 @@ defmodule ScoutedWeb.ScoutingReportsLive do
     earliest = params["earliest"]
 
     case earliest do
-      "" -> earliest_date
-      nil -> earliest_date
+      "" -> earliest_date()
+      nil -> earliest_date()
       earliest -> earliest
     end
   end
@@ -373,8 +373,8 @@ defmodule ScoutedWeb.ScoutingReportsLive do
     latest = params["latest"]
 
     case latest do
-      "" -> todays_date
-      nil -> todays_date
+      "" -> todays_date()
+      nil -> todays_date()
       latest -> latest
     end
   end
