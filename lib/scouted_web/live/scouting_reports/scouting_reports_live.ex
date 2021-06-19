@@ -138,28 +138,6 @@ defmodule ScoutedWeb.ScoutingReportsLive do
   end
 
   @impl true
-  def handle_event("select-report-type", %{"report-type" => report_type}, socket) do
-    socket =
-      push_patch(socket,
-        to:
-          Routes.live_path(socket, __MODULE__,
-            page: 1,
-            per_page: socket.assigns.options.per_page,
-            sort_by: socket.assigns.options.sort_by,
-            sort_order: socket.assigns.options.sort_order,
-            report_type: report_type,
-            author_id: socket.assigns.options.author_id,
-            min_grade: socket.assigns.options.min_grade,
-            max_grade: socket.assigns.options.max_grade,
-            earliest: socket.assigns.options.earliest,
-            latest: socket.assigns.options.latest
-          )
-      )
-
-    {:noreply, socket}
-  end
-
-  @impl true
   def handle_event("filter-earliest", %{"earliest" => earliest}, socket) do
     socket =
       push_patch(socket,
