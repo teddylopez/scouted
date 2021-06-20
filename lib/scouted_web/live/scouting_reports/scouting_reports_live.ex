@@ -283,7 +283,7 @@ defmodule ScoutedWeb.ScoutingReportsLive do
   end
 
   defp format_name(person) do
-    "#{String.capitalize(person.first_name)} #{String.capitalize(person.last_name)}"
+    "#{person.first_name} #{person.last_name}"
   end
 
   defp report_icon(type) do
