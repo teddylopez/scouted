@@ -3,68 +3,78 @@
     <h1 class="text-2xl my-5">All Reports</h1>
     <div class="bg-white w-full border border-gray-200 mb-4 shadow-xl">
       <div class="md:flex md:flex-col md:p-4">
-        <div class="md:flex md:items-center md:justify-between p-4">
-          <div class="flex items-center">
-            <span><i class="fas fa fa-filter pr-2"></i><span class="uppercase font-semibold">Filters</span></span>
-            <span>
-              <div class="p-4">
-                <%= live_patch raw("<i class='fa fa-refresh' aria-hidden='true'></i>"), class: "text-red-600", to: "/" %>
+        <div class="flex flex-col p-4">
+          <div x-data="{ open: true }">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <span>
+                  <span class="uppercase font-semibold">Filters</span></span>
+                <span>
+                  <div class="p-4">
+                    <%= live_patch raw("<i class='fa fa-refresh' aria-hidden='true'></i>"), class: "text-red-600", to: "/" %>
+                  </div>
+                </span>
               </div>
-            </span>
-          </div>
-          <div>
-            <span class='font-semibold md:pl-4 uppercase'>
-              Filtered Results:
-            </span>
-            <span class="pr-4">
-              <span class="text-red-600 font-semibold italic"><%= @total_reports %></span>
-            </span>
-          </div>
-        </div>
-        <hr>
-        <div class="flex md:flex-row flex-col p-4">
-          <form phx-change="filter-position" class="pt-4">
-            <label class="font-medium uppercase pr-2" for="position">Position</label>
-            <select class="p-1 border cursor-pointer" name="position">
-              <%= options_for_select(ScoutingReportView.position_options(), @options.position) %>
-            </select>
-          </form>
-          <form phx-change="filter-author" class="pt-4 md:pl-6">
-            <label class="font-medium uppercase pr-2" for="author">Author</label>
-            <select class="p-1 border cursor-pointer" name="author">
-              <option value="all">All</option>
-              <%= options_for_select(author_type_options(), @options.author_id) %>
-            </select>
-          </form>
-          <form phx-change="filter-min-grade" class="pt-4 md:pl-6">
-            <label class="font-medium uppercase pr-2" for="min-grade">Min-Grade</label>
-            <select class="p-1 border cursor-pointer" name="min-grade">
-              <%= options_for_select(grade_scale(), @options.min_grade) %>
-            </select>
-          </form>
-          <form phx-change="filter-max-grade" class="pt-4 md:pl-6">
-            <label class="font-medium uppercase pr-2" for="max-grade">Max-Grade</label>
-            <select class="p-1 border cursor-pointer" name="max-grade">
-              <%= options_for_select(ScoutingReportView.grade_scale(), @options.max_grade) %>
-            </select>
-          </form>
-        </div>
-        <div class="flex md:flex-row flex-col">
-          <div class="p-4">
-            <form phx-change="filter-earliest">
-              <label class="font-medium uppercase pr-2" for="earliest">Earliest Date</label>
-              <div class="border rounded-md px-3 py-2 w-60">
-                <input type="date" name="earliest" placeholder="<%= @options.earliest %>" value="<%= @options.earliest %>" min="<%= earliest_date() %>" max="<%= todays_date() %>" class="w-full cursor-pointer">
+              <div>
+                <i :class="open ? 'fa-chevron-down' : 'fa-chevron-up'" @click="open = !open" class="fa cursor-pointer"></i>
+                <span class='font-semibold md:pl-4 uppercase'>
+                  Filtered Results:
+                </span>
+                <span class="pr-4">
+                  <span class="text-red-600 font-semibold italic"><%= @total_reports %></span>
+                </span>
               </div>
-            </form>
-          </div>
-          <div class="p-4">
-            <form phx-change="filter-latest">
-              <label class="font-medium uppercase pr-2" for="latest">Latest Date</label>
-              <div class="border rounded-md px-3 py-2 w-60">
-                <input type="date" name="latest" placeholder="<%= @options.latest %>" value="<%= @options.latest %>" min="<%= earliest_date() %>" max="<%= todays_date() %>" class="w-full cursor-pointer">
+            </div>
+            <hr>
+            <div x-show.transition.in.duration.200ms="open">
+              <div class="form-filters">
+                <div class="flex md:flex-row flex-col p-4">
+                  <form phx-change="filter-author" class="pt-4">
+                    <label class="font-medium uppercase pr-2" for="author">Author</label>
+                    <select class="p-1 border cursor-pointer" name="author">
+                      <option value="all">All</option>
+                      <%= options_for_select(author_type_options(), @options.author_id) %>
+                    </select>
+                  </form>
+                  <form phx-change="filter-position" class="pt-4 md:pl-6">
+                    <label class="font-medium uppercase pr-2" for="position">Position</label>
+                    <select class="p-1 border cursor-pointer" name="position">
+                      <%= options_for_select(ScoutingReportView.position_options(), @options.position) %>
+                    </select>
+                  </form>
+                  <form phx-change="filter-min-grade" class="pt-4 md:pl-6">
+                    <label class="font-medium uppercase pr-2" for="min-grade">Min-Grade</label>
+                    <select class="p-1 border cursor-pointer" name="min-grade">
+                      <%= options_for_select(grade_scale(), @options.min_grade) %>
+                    </select>
+                  </form>
+                  <form phx-change="filter-max-grade" class="pt-4 md:pl-6">
+                    <label class="font-medium uppercase pr-2" for="max-grade">Max-Grade</label>
+                    <select class="p-1 border cursor-pointer" name="max-grade">
+                      <%= options_for_select(ScoutingReportView.grade_scale(), @options.max_grade) %>
+                    </select>
+                  </form>
+                </div>
+                <div class="flex md:flex-row flex-col">
+                  <div class="p-4">
+                    <form phx-change="filter-earliest">
+                      <label class="font-medium uppercase pr-2" for="earliest">Earliest Date</label>
+                      <div class="border rounded-md px-3 py-2 w-60">
+                        <input type="date" name="earliest" placeholder="<%= @options.earliest %>" value="<%= @options.earliest %>" min="<%= earliest_date() %>" max="<%= todays_date() %>" class="w-full cursor-pointer">
+                      </div>
+                    </form>
+                  </div>
+                  <div class="p-4">
+                    <form phx-change="filter-latest">
+                      <label class="font-medium uppercase pr-2" for="latest">Latest Date</label>
+                      <div class="border rounded-md px-3 py-2 w-60">
+                        <input type="date" name="latest" placeholder="<%= @options.latest %>" value="<%= @options.latest %>" min="<%= earliest_date() %>" max="<%= todays_date() %>" class="w-full cursor-pointer">
+                      </div>
+                    </form>
+                  </div>
+                </div>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
