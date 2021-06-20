@@ -404,7 +404,7 @@ Repo.insert!(%ScoutingReport{
   player_id: 14,
   report_type: 1,
   grade: 50,
-  position: :left_field,
+  position: :catcher,
   details: %Details{
     time_to_first: "3.2",
     summary:
@@ -419,7 +419,7 @@ Repo.insert!(%ScoutingReport{
   player_id: 14,
   report_type: 1,
   grade: 50,
-  position: :left_field,
+  position: :catcher,
   details: %Details{
     time_to_first: "3.2",
     summary:
@@ -619,7 +619,7 @@ Repo.insert!(%ScoutingReport{
   player_id: 4,
   report_type: 1,
   grade: 50,
-  position: :center_field,
+  position: :right_field,
   details: %Details{
     time_to_first: "4.9",
     summary:
@@ -634,7 +634,7 @@ Repo.insert!(%ScoutingReport{
   player_id: 4,
   report_type: 1,
   grade: 50,
-  position: :center_field,
+  position: :right_field,
   details: %Details{
     time_to_first: "4.8",
     summary:
