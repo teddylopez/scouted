@@ -78,9 +78,18 @@ defmodule ScoutedWeb.ScoutingReportView do
     end
   end
 
-  def translate_position(position) do
-    Atom.to_string(position)
-    |> String.replace("_", " ", global: false)
-    |> String.capitalize()
+  def abbrev_position(position) do
+    case position do
+      :pitcher -> "P"
+      :catcher -> "C"
+      :first_base -> "1B"
+      :second_base -> "2B"
+      :third_base -> "3B"
+      :short_stop -> "SS"
+      :left_field -> "LF"
+      :center_field -> "CF"
+      :right_field -> "RF"
+      :designated_hitter -> "DH"
+    end
   end
 end
