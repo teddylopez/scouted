@@ -101,6 +101,394 @@ Repo.insert!(%Player{
   }
 })
 
+Repo.insert!(%Player{
+  id: 6,
+  first_name: "Randy",
+  last_name: "Arozarena",
+  info: %{
+    bats: "right",
+    throws: "right",
+    number: "56",
+    height: "5.11",
+    weight: "185",
+    dob: "02/28/1995"
+  }
+})
+
+Repo.insert!(%Player{
+  id: 7,
+  first_name: "Kevin",
+  last_name: "Kiermaier",
+  info: %{
+    bats: "left",
+    throws: "right",
+    number: "39",
+    height: "6.1",
+    weight: "210",
+    dob: "04/22/1990"
+  }
+})
+
+Repo.insert!(%Player{
+  id: 8,
+  first_name: "Kevin",
+  last_name: "Kiermaier",
+  info: %{
+    bats: "left",
+    throws: "right",
+    number: "39",
+    height: "6.1",
+    weight: "210",
+    dob: "04/22/1990"
+  }
+})
+
+Repo.insert!(%Player{
+  id: 9,
+  first_name: "Austin",
+  last_name: "Meadows",
+  info: %{
+    bats: "left",
+    throws: "left",
+    number: "17",
+    height: "6.3",
+    weight: "225",
+    dob: "05/03/1995"
+  }
+})
+
+Repo.insert!(%Player{
+  id: 10,
+  first_name: "Brett",
+  last_name: "Phillips",
+  info: %{
+    bats: "left",
+    throws: "right",
+    number: "35",
+    height: "6.0",
+    weight: "195",
+    dob: "05/30/1994"
+  }
+})
+
+Repo.insert!(%Player{
+  id: 11,
+  first_name: "Joey",
+  last_name: "Wendle",
+  info: %{
+    bats: "left",
+    throws: "right",
+    number: "18",
+    height: "6.1",
+    weight: "195",
+    dob: "04/26/1990"
+  }
+})
+
+Repo.insert!(%Player{
+  id: 12,
+  first_name: "Taylor",
+  last_name: "Walls",
+  info: %{
+    bats: "switch",
+    throws: "right",
+    number: "6",
+    height: "5.10",
+    weight: "185",
+    dob: "07/10/1996"
+  }
+})
+
+Repo.insert!(%Player{
+  id: 13,
+  first_name: "Mike",
+  last_name: "Zunino",
+  info: %{
+    bats: "right",
+    throws: "right",
+    number: "10",
+    height: "6.2",
+    weight: "235",
+    dob: "03/05/1991"
+  }
+})
+
+Repo.insert!(%Player{
+  id: 14,
+  first_name: "Francisco",
+  last_name: "Mejia",
+  info: %{
+    bats: "switch",
+    throws: "right",
+    number: "6",
+    height: "5.8",
+    weight: "188",
+    dob: "10/27/1995"
+  }
+})
+
+Repo.insert!(%Player{
+  id: 15,
+  first_name: "Shane",
+  last_name: "McClanahan",
+  info: %{
+    bats: "left",
+    throws: "left",
+    number: "62",
+    height: "6.1",
+    weight: "200",
+    dob: "04/28/1997"
+  }
+})
+
+Repo.insert!(%ScoutingReport{
+  user_id: 1,
+  player_id: 13,
+  report_type: 1,
+  grade: 60,
+  position: :catcher,
+  details: %Details{
+    time_to_first: "4.8",
+    summary:
+      "Thick, stocky, good frame. Soft hands behind the plate, frames pitches well. Good communicator and game caller. Lined a shot over left-center. Needs to hit for more contact but his power will keep him in the lineup...",
+    date_seen: "09/22/2019"
+  },
+  updated_at: ~N[2020-06-22 14:53:27]
+})
+
+Repo.insert!(%ScoutingReport{
+  user_id: 1,
+  player_id: 15,
+  report_type: 0,
+  grade: 70,
+  position: :pitcher,
+  details: %Details{
+    pitcher_role: "Starter",
+    summary:
+      "LHP with high delivery and loose quick arm -- Explosive! Has recoil with small head bobble. FB has plus arm side run. SL can be a plus pitch with hard late tilt. Needs to repeat delivery better. Has good feel for CH. Maintains his arm speed. Plus sink. Needs to harness his stuff. Has to prove he can command the baseball. Command could prevent him from pitching deep into games. Plus make up and work habits.",
+    fastball_min_velo: "93",
+    fastball_max_velo: "99",
+    sinker_min_velo: "87",
+    sinker_max_velo: "90",
+    slider_min_velo: "84",
+    slider_max_velo: "86",
+    curveball_min_velo: "84",
+    curveball_max_velo: "85",
+    changeup_min_velo: "85",
+    changeup_max_velo: "86",
+    date_seen: "06/20/2021"
+  },
+  updated_at: ~N[2021-06-21 14:53:27]
+})
+
+Repo.insert!(%ScoutingReport{
+  user_id: 1,
+  player_id: 15,
+  report_type: 0,
+  grade: 70,
+  position: :pitcher,
+  details: %Details{
+    pitcher_role: "Starter",
+    summary:
+      "LHS thick frame that works off 3b side of rubber with a small pivot turn start. Aggressive style, with fast and up-tempo game. Fb topping out at 97-98 mph. slider/slurve hard down and accr zone was a solid 55 sometimes better K out pitch. Change was buried had splitter action. Has some real swing and miss stuff. Threw strikes with command of fb/SL. Good chance to be mid rotation starter or power LHR in back end of pen.",
+    fastball_min_velo: "93",
+    fastball_max_velo: "99",
+    sinker_min_velo: "87",
+    sinker_max_velo: "90",
+    slider_min_velo: "84",
+    slider_max_velo: "86",
+    curveball_min_velo: "84",
+    curveball_max_velo: "85",
+    changeup_min_velo: "85",
+    changeup_max_velo: "86",
+    other_name: "slurve",
+    other_min_velo: "84",
+    other_max_velo: "87",
+    date_seen: "06/20/2021"
+  },
+  updated_at: ~N[2021-06-14 14:53:27]
+})
+
+Repo.insert!(%ScoutingReport{
+  user_id: 1,
+  player_id: 12,
+  report_type: 1,
+  grade: 65,
+  position: :short_stop,
+  details: %Details{
+    time_to_first: "3.2",
+    summary:
+      "Very solid middle infielder with defensive first style. Line drive put the ball in play switch hitter that gets on base. High energy type utility infielder that can switch it and play anywhere. Instant contibutor in every game. Team captain type player.",
+    date_seen: "07/23/2019"
+  },
+  updated_at: ~N[2019-07-23 14:53:27]
+})
+
+Repo.insert!(%ScoutingReport{
+  user_id: 2,
+  player_id: 12,
+  report_type: 1,
+  grade: 55,
+  position: :short_stop,
+  details: %Details{
+    time_to_first: "3.2",
+    summary:
+      "Sound defensively and can play multiple pos. Very similar set up from both sides of plate, but a bit more pop from Right side. Needs to get more agggressive at the plate... way too patient and always deep in counts. Lets too many fat pitches go by. Avg runner with very good instincts and a very polished defender.",
+    date_seen: "08/17/2020"
+  },
+  updated_at: ~N[2020-08-23 14:53:27]
+})
+
+Repo.insert!(%ScoutingReport{
+  user_id: 1,
+  player_id: 8,
+  report_type: 1,
+  grade: 55,
+  position: :center_field,
+  details: %Details{
+    time_to_first: "3.2",
+    summary:
+      "Elite Gold Glove defender in outfield - total package with speed, breaks, and arm. Can play a bit reckless and has trouble staying healthy with his style. Not much of a bat, bottom order hitter. Doesn't walk much and prone to K's. Streaky. 1st division regular!!",
+    date_seen: "09/23/2019"
+  },
+  updated_at: ~N[2019-09-26 14:53:27]
+})
+
+Repo.insert!(%ScoutingReport{
+  user_id: 2,
+  player_id: 8,
+  report_type: 1,
+  grade: 55,
+  position: :center_field,
+  details: %Details{
+    time_to_first: "3.2",
+    summary:
+      "HIGH VALUE IN HIS DEFENSIVE ABILITY - ONE OF BEST CENTER FIELDERS IN GAME. YEARLY GOLD GLOVE CONTENDER. COVERS GROUND FAST, MANY SPECTACUAR CATCHES, THROWS WELL, TOUGH TO RUN ON.  STREAKY HITTER HAS BATTLED INJURIES AND NEVER GOT MUCH GOING - BETTER THAN HIS NUMBERS, SHOULD IMPROVE.",
+    date_seen: "09/23/2019"
+  },
+  updated_at: ~N[2018-09-15 14:53:27]
+})
+
+Repo.insert!(%ScoutingReport{
+  user_id: 2,
+  player_id: 9,
+  report_type: 1,
+  grade: 55,
+  position: :left_field,
+  details: %Details{
+    time_to_first: "3.2",
+    summary:
+      "Strong, athletic with deceptive running speed. Decent arm, improving. contact bat uses the field and decent off speed hitter. Needs to develop his power. Line drive hitter. Still has holes in his swing and doesn't lay off the high heat... must use his whole body to harness his power. Good reads in outfield with good jumps and routes, I think he should still be in CF???- still see him as a 55 grade, ML 1st division starter!!",
+    date_seen: "04/23/2018"
+  },
+  updated_at: ~N[2018-04-26 14:53:27]
+})
+
+Repo.insert!(%ScoutingReport{
+  user_id: 1,
+  player_id: 9,
+  report_type: 1,
+  grade: 55,
+  position: :left_field,
+  details: %Details{
+    time_to_first: "3.2",
+    summary:
+      "Abv avg ML hitter with loft to his swing & uses whole field. Has abv avg power and avg BB% showing some discipline. Strong left hander that hangs in well vs LHP! He's an avg runner, will take the extra base & can steal a base, 15 + a year. Have him as an avg fielder with fringy arm that has avg accuracy. Saw in LF & RF, like better in LF I believe he's going to be an OCCASIONAL ALL STAR",
+    date_seen: "06/09/2019"
+  },
+  updated_at: ~N[2019-06-09 14:53:27]
+})
+
+Repo.insert!(%ScoutingReport{
+  user_id: 1,
+  player_id: 14,
+  report_type: 1,
+  grade: 50,
+  position: :left_field,
+  details: %Details{
+    time_to_first: "3.2",
+    summary:
+      "Switch-hitting back-up/xtra C. Offensive oriented. Smaller, live body, w/some pop. Above average throwing. Long swing... Small target w/some agility. AA speed on basepaths but not a stolen base threat. Not always invested in blocking. Hands ok. Periods of drops/clanks. Game calling should improve with more experience ",
+    date_seen: "06/17/2019"
+  },
+  updated_at: ~N[2019-06-17 14:53:27]
+})
+
+Repo.insert!(%ScoutingReport{
+  user_id: 2,
+  player_id: 14,
+  report_type: 1,
+  grade: 50,
+  position: :left_field,
+  details: %Details{
+    time_to_first: "3.2",
+    summary:
+      "Small frame catcher with offense ahead of his glove!!- athletic, quick twitch guy. very quick bat/ also ability barrel baseballs- hard contact use field hacker appraoch- rough/crude with glove, P’s looked frustrated with some of his plays behind the plate - maybe needs to go to LF/let him slash and hit!!",
+    date_seen: "06/12/2018"
+  },
+  updated_at: ~N[2018-06-12 14:53:27]
+})
+
+Repo.insert!(%ScoutingReport{
+  user_id: 1,
+  player_id: 11,
+  report_type: 1,
+  grade: 60,
+  position: :second_base,
+  details: %Details{
+    time_to_first: "3.2",
+    summary:
+      "Grinder type, saw him at SS and 3rd base, probably best at 2nd. Nice range, not sure he has arm strength to make all plays at SS- has a good clock though and can fill in there- Sneaky pwr/pop- deceptive hustling runner above avg- more 2B's type bat, speed, range and nice tools to be an everyday guy!!",
+    date_seen: "09/19/2019"
+  },
+  updated_at: ~N[2019-09-19 14:53:27]
+})
+
+Repo.insert!(%ScoutingReport{
+  user_id: 2,
+  player_id: 11,
+  report_type: 1,
+  grade: 55,
+  position: :second_base,
+  details: %Details{
+    time_to_first: "3.2",
+    summary:
+      "'BASEBALL PLAYER' DOES A LOT OF THINGS WELL AND PLAYS GAME THE RIGHT WAY. HUSTLES ALL THE TIME, AGGRESSIVE ON BASES AND PESKY HITTER AND  GOOD SITUATIONAL HITTER. VERY SOUND AT 2B  ALSO PLAYED SOME 3B AND LF  DID OK THERE.   SOME EXTRA BASE POWER- GOES WELL WITH THE PITCH.",
+    date_seen: "09/15/2018"
+  },
+  updated_at: ~N[2018-09-15 14:53:27]
+})
+
+Repo.insert!(%ScoutingReport{
+  user_id: 1,
+  player_id: 11,
+  report_type: 1,
+  grade: 55,
+  position: :second_base,
+  details: %Details{
+    time_to_first: "3.2",
+    summary:
+      "everyday ML 2B,  not flashy, just steady blue-collar baseball player. plays with old school mentality.  handsy hitter who works count and shows good discipline. has doubles power. solid defender, w/ 55ish range, hands and arm. good instincts in middle of field, seems to always be where ball is hit. keep the line moving type",
+    date_seen: "08/25/2018"
+  },
+  updated_at: ~N[2018-08-25 14:53:27]
+})
+
+Repo.insert!(%ScoutingReport{
+  user_id: 1,
+  player_id: 10,
+  report_type: 1,
+  grade: 55,
+  position: :right_field,
+  details: %Details{
+    time_to_first: "3.2",
+    summary:
+      "Plenty of tools needs to put them all together... Routes and jumps in CF/RF are AA with good closing speed and plus arm. Needs to adjust his approach at the plate and must use his bunt game an maximize his tools. Can play all 3 outfield spots and steal a base off the bench. Def was solid avg to plus. He needs to overhaul his swing this off-season. I still see him as an extra OF'er at this stage of development.",
+    date_seen: "09/07/2019"
+  },
+  updated_at: ~N[2019-09-07 14:53:27]
+})
+
 Repo.insert!(%ScoutingReport{
   user_id: 1,
   player_id: 1,
