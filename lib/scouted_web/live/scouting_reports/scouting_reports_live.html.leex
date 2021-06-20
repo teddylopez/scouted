@@ -5,15 +5,15 @@
       <div class="md:flex md:flex-col md:p-4">
         <div class="flex flex-col p-4">
           <div x-data="{ open: true }">
-            <div class="flex items-center justify-between">
+            <div class="flex md:flex-row flex-col pb-4 md:pb-0 md:items-center md:justify-between">
               <div class="flex items-center">
-                <span>
-                  <span class="uppercase font-semibold">Filters</span></span>
-                <span>
-                  <div class="p-4">
-                    <%= live_patch raw("<i class='fa fa-refresh' aria-hidden='true'></i>"), class: "text-red-600", to: "/" %>
-                  </div>
-                </span>
+                <div class="">
+                  <i class="fas fa fa-filter pr-2"></i>
+                  <span class="uppercase font-semibold">Filters</span>
+                </div>
+                <div class="p-4">
+                  <%= live_patch raw("<i class='fa fa-refresh' aria-hidden='true'></i>"), class: "text-red-600", to: "/" %>
+                </div>
               </div>
               <div>
                 <i :class="open ? 'fa-chevron-down' : 'fa-chevron-up'" @click="open = !open" class="fa cursor-pointer"></i>
