@@ -24,7 +24,7 @@ defmodule ScoutedWeb.ScoutingReportView do
   end
 
   def grade_scale do
-    [20, 30, 40, 50, 60, 70, 80]
+    [20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80]
   end
 
   def player_options do
