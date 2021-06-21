@@ -2,7 +2,7 @@
   <div class="flex">
     <div class="pagination">
       <%= if @options.page > 1 do %>
-        <%= ScoutingReportsLive.pagination_link(@socket, Phoenix.HTML.raw("<i class='fa text-blue-500 fa-lg fa-angle-left px-3 py-1 border rounded-sm' aria-hidden='true'></i>"), @options.page - 1, @options, "previous") %>
+        <%= ScoutingReportsLive.pagination_link(@socket, Phoenix.HTML.raw("<i class='fa text-blue-500 fa-lg fa-angle-left px-2 md:px-3 py-1 border rounded-sm' aria-hidden='true'></i>"), @options.page - 1, @options, "previous") %>
       <% end %>
 
       <div class="pagination-page-number">
@@ -10,7 +10,7 @@
           <%= for i <- (@options.page - 2)..(@options.page + 2), i > 0 do %>
             <%= if i <= ceil(@total_reports / @options.per_page) do %>
               <div class="page">
-                <%= ScoutingReportsLive.pagination_link(@socket, i, i, @options, (if i == @options.page, do: "bg-blue-600 text-white")) %>
+                <%= ScoutingReportsLive.pagination_link(@socket, i, i, @options, (if i == @options.page, do: "bg-blue-600 text-white md:px-1")) %>
               </div>
             <% end %>
           <% end %>
@@ -18,7 +18,7 @@
       </div>
 
       <%= if (@options.page * @options.per_page) < @total_reports do %>
-        <%= ScoutingReportsLive.pagination_link(@socket, Phoenix.HTML.raw("<i class='fa text-blue-500 fa-lg fa-angle-right px-3 py-1 border rounded-sm' aria-hidden='true'></i>"), @options.page + 1, @options, "next") %>
+        <%= ScoutingReportsLive.pagination_link(@socket, Phoenix.HTML.raw("<i class='fa text-blue-500 fa-lg fa-angle-right px-2 md:px-3 py-1 border rounded-sm' aria-hidden='true'></i>"), @options.page + 1, @options, "next") %>
       <% end %>
     </div>
   </div>
