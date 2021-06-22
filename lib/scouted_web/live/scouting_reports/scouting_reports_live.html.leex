@@ -51,7 +51,7 @@
                   <form phx-change="filter-max-grade" class="pt-4 md:pl-6">
                     <label class="font-medium uppercase pr-2" for="max-grade">Max-Grade</label>
                     <select class="p-1 border cursor-pointer" name="max-grade">
-                      <%= options_for_select(ScoutingReportView.grade_scale(), @options.max_grade) %>
+                      <%= options_for_select(grade_scale(), @options.max_grade) %>
                     </select>
                   </form>
                 </div>
