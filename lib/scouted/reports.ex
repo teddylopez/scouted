@@ -46,7 +46,6 @@ defmodule Scouted.Reports do
         case position do
           "all" -> query
           position -> from q in query, where: q.position == ^position
-          nil -> query
         end
 
       {:author_id, %{author_id: author_id}}, query ->
@@ -59,9 +58,10 @@ defmodule Scouted.Reports do
         end
 
       {:date, %{earliest: earliest, latest: latest}}, query ->
-        {:ok, earliest_date} = NaiveDateTime.from_iso8601(earliest <> " 00:00:00")
-        {:ok, latest_date} = NaiveDateTime.from_iso8601(latest <> " 23:59:59")
-        from q in query, where: q.updated_at >= ^earliest_date and q.updated_at <= ^latest_date
+        %{earliest_naive: earliest_naive, latest_naive: latest_naive} =
+          convert_time_string_to_naive(earliest, latest)
+
+        from q in query, where: q.updated_at >= ^earliest_naive and q.updated_at <= ^latest_naive
     end)
     |> Repo.all()
   end
@@ -70,101 +70,99 @@ defmodule Scouted.Reports do
     Repo.aggregate(ScoutingReport, :count, :id)
   end
 
-  def count_reports(options) do
-    author_id = Map.get(options, :author_id)
-    position = Map.get(options, :position)
-    min_grade = Map.get(options, :min_grade)
-    max_grade = Map.get(options, :max_grade)
-    earliest = Map.get(options, :earliest)
-    latest = Map.get(options, :latest)
-    {:ok, earliest_naive} = NaiveDateTime.from_iso8601(earliest <> " 00:00:00")
-    {:ok, latest_naive} = NaiveDateTime.from_iso8601(latest <> " 23:59:59")
+  def count_reports(
+        %{position: "all", author_id: "all", earliest: earliest, latest: latest} = options
+      ) do
+    %{earliest_naive: earliest_naive, latest_naive: latest_naive} =
+      convert_time_string_to_naive(earliest, latest)
 
-    case position do
-      "all" ->
-        case author_id do
-          "all" ->
-            query =
-              from scouting_report in ScoutingReport,
-                where:
-                  scouting_report.grade <= ^max_grade and
-                    scouting_report.grade >= ^min_grade and
-                    (scouting_report.updated_at >= ^earliest_naive and
-                       scouting_report.updated_at <= ^latest_naive)
+    query =
+      from scouting_report in ScoutingReport,
+        where:
+          scouting_report.grade <= ^options.max_grade and
+            scouting_report.grade >= ^options.min_grade and
+            (scouting_report.updated_at >= ^earliest_naive and
+               scouting_report.updated_at <= ^latest_naive)
 
-            Repo.aggregate(query, :count, :id)
-
-          author_id ->
-            get_position_types_from_author(
-              author_id,
-              "all",
-              min_grade,
-              max_grade,
-              earliest_naive,
-              latest_naive
-            )
-        end
-
-      position ->
-        case author_id do
-          "all" ->
-            query =
-              from scouting_report in ScoutingReport,
-                where:
-                  scouting_report.position == ^position and
-                    (scouting_report.grade <= ^max_grade and
-                       scouting_report.grade >= ^min_grade) and
-                    (scouting_report.updated_at >= ^earliest_naive and
-                       scouting_report.updated_at <= ^latest_naive)
-
-            Repo.aggregate(query, :count, :id)
-
-          author_id ->
-            get_position_types_from_author(
-              author_id,
-              position,
-              min_grade,
-              max_grade,
-              earliest_naive,
-              latest_naive
-            )
-        end
-    end
+    Repo.aggregate(query, :count, :id)
   end
 
-  def get_position_types_from_author(author_id, position, min_grade, max_grade, earliest, latest) do
-    author_id = String.to_integer(author_id)
+  def count_reports(
+        %{position: position, author_id: "all", earliest: earliest, latest: latest} = options
+      ) do
+    %{earliest_naive: earliest_naive, latest_naive: latest_naive} =
+      convert_time_string_to_naive(earliest, latest)
 
-    case position do
-      "all" ->
-        query =
-          from scouting_report in ScoutingReport,
-            join: u in User,
-            on: scouting_report.user_id == u.id,
-            where:
-              scouting_report.user_id == ^author_id and
-                scouting_report.grade >= ^min_grade and
-                scouting_report.grade <= ^max_grade and
-                (scouting_report.updated_at >= ^earliest and
-                   scouting_report.updated_at <= ^latest)
+    query =
+      from scouting_report in ScoutingReport,
+        where:
+          scouting_report.grade <= ^options.max_grade and
+            scouting_report.grade >= ^options.min_grade and
+            (scouting_report.updated_at >= ^earliest_naive and
+               scouting_report.updated_at <= ^latest_naive) and
+            scouting_report.position == ^position
 
-        Repo.aggregate(query, :count, :id)
+    Repo.aggregate(query, :count, :id)
+  end
 
-      position ->
-        query =
-          from scouting_report in ScoutingReport,
-            join: u in User,
-            on: scouting_report.user_id == u.id,
-            where:
-              scouting_report.position == ^position and
-                scouting_report.user_id == ^author_id and
-                scouting_report.grade >= ^min_grade and
-                scouting_report.grade <= ^max_grade and
-                (scouting_report.updated_at >= ^earliest and
-                   scouting_report.updated_at <= ^latest)
+  def count_reports(
+        %{position: position, author_id: author_id, earliest: earliest, latest: latest} = options
+      ) do
+    %{earliest_naive: earliest_naive, latest_naive: latest_naive} =
+      convert_time_string_to_naive(earliest, latest)
 
-        Repo.aggregate(query, :count, :id)
-    end
+    get_position_reports_from_author(
+      author_id,
+      position,
+      options.min_grade,
+      options.max_grade,
+      earliest_naive,
+      latest_naive
+    )
+  end
+
+  def convert_time_string_to_naive(earliest, latest) do
+    {:ok, earliest_naive} = NaiveDateTime.from_iso8601(earliest <> " 00:00:00")
+    {:ok, latest_naive} = NaiveDateTime.from_iso8601(latest <> " 23:59:59")
+    %{earliest_naive: earliest_naive, latest_naive: latest_naive}
+  end
+
+  def get_position_reports_from_author(author_id, "all", min_grade, max_grade, earliest, latest) do
+    query =
+      from scouting_report in ScoutingReport,
+        join: u in User,
+        on: scouting_report.user_id == u.id,
+        where:
+          scouting_report.user_id == ^author_id and
+            scouting_report.grade >= ^min_grade and
+            scouting_report.grade <= ^max_grade and
+            (scouting_report.updated_at >= ^earliest and
+               scouting_report.updated_at <= ^latest)
+
+    Repo.aggregate(query, :count, :id)
+  end
+
+  def get_position_reports_from_author(
+        author_id,
+        position,
+        min_grade,
+        max_grade,
+        earliest,
+        latest
+      ) do
+    query =
+      from scouting_report in ScoutingReport,
+        join: u in User,
+        on: scouting_report.user_id == u.id,
+        where:
+          scouting_report.position == ^position and
+            scouting_report.user_id == ^author_id and
+            scouting_report.grade >= ^min_grade and
+            scouting_report.grade <= ^max_grade and
+            (scouting_report.updated_at >= ^earliest and
+               scouting_report.updated_at <= ^latest)
+
+    Repo.aggregate(query, :count, :id)
   end
 
   @doc """
