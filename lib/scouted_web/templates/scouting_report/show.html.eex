@@ -30,7 +30,7 @@
         <% end %>
         <h5><span class="font-bold">Additional Info:</span></h5>
         <ul class="mb-sm-5">
-          <li>Height: <%= @changeset.player.info["height"] %></li>
+          <li>Height: <%= ScoutedWeb.ScoutingReportView.convert_height(@changeset.player.info["height"]) %></li>
           <li>Weight: <%= @changeset.player.info["weight"] %></li>
           <li>Bats: <%= String.capitalize(@changeset.player.info["bats"]) %></li>
           <li>Throws: <%= String.capitalize(@changeset.player.info["throws"]) %></li>

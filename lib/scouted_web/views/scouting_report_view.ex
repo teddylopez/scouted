@@ -23,6 +23,11 @@ defmodule ScoutedWeb.ScoutingReportView do
     Calendar.strftime(date, "%m/%d/%Y")
   end
 
+  def convert_height(height) do
+    height = height |> String.replace(".", "' ")
+    height <> "\""
+  end
+
   def grade_scale do
     [20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80]
   end
