@@ -2,6 +2,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Graduate&display=swap');
 /* LiveView specific classes for your customizations */
 .phx-no-feedback .invalid-feedback,
 .phx-no-feedback.invalid-feedback {
@@ -97,6 +98,13 @@
 /* Customs: */
 .active-font {
   color: white !important;
+}
+
+nav {
+  .brand {
+    font-family: 'Graduate', cursive;
+    // transform: rotate(-4deg) !important;
+  }
 }
 
 div.container {

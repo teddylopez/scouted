@@ -4,7 +4,7 @@
       <div class="flex-1 flex sm:items-stretch sm:justify-start">
         <div class="flex-shrink-0 flex">
           <%= link to: "/" do %>
-            <h1 class="text-white text-2xl">
+            <h1 class="text-white text-xl brand italic">
               scou<span style="color:rgb(255, 23, 68);" class="font-semibold">ted</span>
             </h1>
           <% end %>
